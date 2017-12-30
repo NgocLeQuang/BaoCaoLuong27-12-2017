@@ -1172,7 +1172,7 @@
             this.txt_Truong_021.Name = "txt_Truong_021";
             this.txt_Truong_021.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_021.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_021.Properties.Mask.EditMask = "[1?●]";
+            this.txt_Truong_021.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_021.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_021.Size = new System.Drawing.Size(17, 22);
             this.txt_Truong_021.TabIndex = 8;
@@ -1187,7 +1187,7 @@
             this.txt_Truong_023.Name = "txt_Truong_023";
             this.txt_Truong_023.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_023.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_023.Properties.Mask.EditMask = "[1?●]";
+            this.txt_Truong_023.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_023.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_023.Size = new System.Drawing.Size(17, 22);
             this.txt_Truong_023.TabIndex = 10;
@@ -1806,7 +1806,7 @@
             this.txt_Truong_052.Name = "txt_Truong_052";
             this.txt_Truong_052.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_052.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_052.Properties.Mask.EditMask = "[0-9a-zA-Z?●]+";
+            this.txt_Truong_052.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_052.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_052.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_052.TabIndex = 58;
@@ -1834,7 +1834,7 @@
             this.txt_Truong_044.Name = "txt_Truong_044";
             this.txt_Truong_044.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_044.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_044.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_044.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_044.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_044.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_044.TabIndex = 60;
@@ -1848,7 +1848,7 @@
             this.txt_Truong_045.Name = "txt_Truong_045";
             this.txt_Truong_045.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_045.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_045.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_045.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_045.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_045.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_045.TabIndex = 61;
@@ -1862,7 +1862,7 @@
             this.txt_Truong_046.Name = "txt_Truong_046";
             this.txt_Truong_046.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_046.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_046.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_046.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_046.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_046.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_046.TabIndex = 62;
@@ -1876,7 +1876,7 @@
             this.txt_Truong_048.Name = "txt_Truong_048";
             this.txt_Truong_048.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_048.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_048.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_048.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_048.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_048.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_048.TabIndex = 63;
@@ -1890,7 +1890,7 @@
             this.txt_Truong_049.Name = "txt_Truong_049";
             this.txt_Truong_049.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_049.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_049.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_049.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_049.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_049.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_049.TabIndex = 64;
@@ -1904,7 +1904,7 @@
             this.txt_Truong_050.Name = "txt_Truong_050";
             this.txt_Truong_050.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_050.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_050.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_050.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_050.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_050.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_050.TabIndex = 65;
@@ -1918,7 +1918,7 @@
             this.txt_Truong_055.Name = "txt_Truong_055";
             this.txt_Truong_055.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_055.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_055.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_055.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_055.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_055.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_055.TabIndex = 67;
@@ -1932,7 +1932,7 @@
             this.txt_Truong_056.Name = "txt_Truong_056";
             this.txt_Truong_056.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_056.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_056.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_056.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_056.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_056.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_056.TabIndex = 68;
@@ -2102,7 +2102,7 @@
             this.txt_Truong_051.Name = "txt_Truong_051";
             this.txt_Truong_051.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F);
             this.txt_Truong_051.Properties.Appearance.Options.UseFont = true;
-            this.txt_Truong_051.Properties.Mask.EditMask = "[1?●]+";
+            this.txt_Truong_051.Properties.Mask.EditMask = "[1?]";
             this.txt_Truong_051.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.RegEx;
             this.txt_Truong_051.Size = new System.Drawing.Size(25, 22);
             this.txt_Truong_051.TabIndex = 66;

@@ -273,7 +273,7 @@
             // txt_Note
             // 
             this.txt_Note.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txt_Note.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_Note.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Note.Location = new System.Drawing.Point(0, 0);
             this.txt_Note.Name = "txt_Note";
             this.txt_Note.Size = new System.Drawing.Size(676, 71);
