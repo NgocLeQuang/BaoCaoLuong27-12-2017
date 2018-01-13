@@ -34,12 +34,32 @@ namespace BaoCaoLuong2018
                 frmLogin frLogin = new frmLogin();
                 if (frLogin.ShowDialog() == DialogResult.OK)
                 {
-                    frm_Main frMain = new frm_Main();
-
-                    if (frMain.ShowDialog() == DialogResult.Yes)
+                    if (Global.StrCity == "CityS")
                     {
-                        frMain.Close();
-                        temp = true;
+                        BaoCaoLuonng2017.Global.StrMachine = Global.StrPcName;
+                        BaoCaoLuonng2017.Global.StrUserWindow = Global.StrDomainName;
+                        BaoCaoLuonng2017.Global.StrIpAddress = "";
+                        BaoCaoLuonng2017.Global.StrUsername = Global.StrUserName;
+                        BaoCaoLuonng2017.Global.StrBatch = Global.StrBatch;
+                        BaoCaoLuonng2017.Global.StrRole = Global.StrRole;
+                        BaoCaoLuonng2017.Global.Strtoken = Global.Token;
+                        BaoCaoLuonng2017.Global.StrCity = Global.StrCity;
+                        BaoCaoLuonng2017.MyForm.frm_Main fm = new BaoCaoLuonng2017.MyForm.frm_Main();
+                        if (fm.ShowDialog() == DialogResult.Yes)
+                        {
+                            fm.Close();
+                            frLogin.txt_username_TextChanged(null, null);
+                            temp = true;
+                        }
+                    }
+                    else
+                    {
+                        frm_Main frMain = new frm_Main();
+                        if (frMain.ShowDialog() == DialogResult.Yes)
+                        {
+                            frMain.Close();
+                            temp = true;
+                        }
                     }
                 }
             }

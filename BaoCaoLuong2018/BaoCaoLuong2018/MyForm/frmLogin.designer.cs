@@ -212,7 +212,6 @@
             // 
             // cbb_City
             // 
-            this.cbb_City.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbb_City.FormattingEnabled = true;
             this.cbb_City.Items.AddRange(new object[] {
             "CityN",
@@ -223,6 +222,8 @@
             this.cbb_City.Size = new System.Drawing.Size(235, 21);
             this.cbb_City.TabIndex = 6;
             this.cbb_City.SelectedIndexChanged += new System.EventHandler(this.cbb_City_SelectedIndexChanged);
+            this.cbb_City.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbb_City_KeyDown);
+            this.cbb_City.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbb_City_KeyPress);
             // 
             // lb_city
             // 
@@ -245,13 +246,13 @@
             // 
             // cbb_batchname
             // 
-            this.cbb_batchname.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbb_batchname.FormattingEnabled = true;
             this.cbb_batchname.Location = new System.Drawing.Point(102, 157);
             this.cbb_batchname.Name = "cbb_batchname";
             this.cbb_batchname.Size = new System.Drawing.Size(235, 21);
             this.cbb_batchname.TabIndex = 7;
-            this.cbb_batchname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbb_batchname_KeyPress);
+            this.cbb_batchname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbb_City_KeyDown);
+            this.cbb_batchname.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbb_City_KeyPress);
             // 
             // txt_role
             // 
@@ -269,6 +270,7 @@
             this.txt_password.Name = "txt_password";
             this.txt_password.Size = new System.Drawing.Size(193, 20);
             this.txt_password.TabIndex = 3;
+            this.txt_password.EditValueChanged += new System.EventHandler(this.txt_password_EditValueChanged);
             this.txt_password.TextChanged += new System.EventHandler(this.txt_password_EditValueChanged);
             // 
             // txt_username

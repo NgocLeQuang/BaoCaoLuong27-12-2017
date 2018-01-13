@@ -13,6 +13,7 @@ namespace BaoCaoLuong2018.MyUserControl
 {
     public partial class UC_CityO_JP : UserControl
     {
+        public event Focus_Text Focus;
         public event AllTextChange Changed;
         public UC_CityO_JP()
         {
@@ -120,10 +121,42 @@ namespace BaoCaoLuong2018.MyUserControl
                                             "Y",
                                             "Z",
                                             " ",
-                                            "‐"};
+                                            "ｰ",
+                                            "ｧ",
+                                            "ｨ",
+                                            "ｩ",
+                                            "ｪ",
+                                            "ｫ",
+                                            "ｯ",
+                                            "ｬ",
+                                            "ｭ",
+                                            "ｮ",
+                                            "ｱ",
+                                            "ｲ",
+                                            "ｳ",
+                                            "ｴ",
+                                            "ｵ",
+                                            "ﾂ",
+                                            "ﾔ",
+                                            "ﾕ",
+                                            "ﾖ",
+                                            "?"
+        };
 
-        private void UC_CityO_JP_Load(object sender, EventArgs e)
+        public void UC_CityO_JP_Load(object sender, EventArgs e)
         {
+            if (Global.FlagLoad)
+                return;
+            txt_Truong_016.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "16" select w.Note).FirstOrDefault();
+            txt_Truong_094.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "94" select w.Note).FirstOrDefault();
+            txt_Truong_096.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "96" select w.Note).FirstOrDefault();
+            txt_Truong_098.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "98" select w.Note).FirstOrDefault();
+            txt_Truong_100.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "100" select w.Note).FirstOrDefault();
+            txt_Truong_102.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "102" select w.Note).FirstOrDefault();
+            txt_Truong_104.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "104" select w.Note).FirstOrDefault();
+            txt_Truong_106.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "106" select w.Note).FirstOrDefault();
+            txt_Truong_108.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "LoaiJP" & w.Truong == "108" select w.Note).FirstOrDefault();
+            
             txt_Truong_016.GotFocus += Txt_Truong_094_GotFocus;
             txt_Truong_094.GotFocus += Txt_Truong_094_GotFocus;
             txt_Truong_096.GotFocus += Txt_Truong_094_GotFocus;
@@ -137,15 +170,16 @@ namespace BaoCaoLuong2018.MyUserControl
 
         private void Txt_Truong_094_GotFocus(object sender, EventArgs e)
         {
-            ((TextEdit)sender).SelectAll();
+            Focus(((RichTextBox)sender).Name, ((RichTextBox)sender).Tag + "");
+            ((RichTextBox)sender).SelectAll();
         }
 
         private void txt_Truong_094_TextChanged(object sender, EventArgs e)
         {
-            if (((TextEdit)sender).Text.IndexOf('●') >= 0)
-                ((TextEdit)sender).Text = "●";
-            if (((TextEdit)sender).Text.IndexOf('?') >= 0)
-                ((TextEdit)sender).Text = "?";
+            //if (((TextEdit)sender).Text.IndexOf('●') >= 0)
+            //    ((TextEdit)sender).Text = "●";
+            //if (((TextEdit)sender).Text.IndexOf('?') >= 0)
+            //    ((TextEdit)sender).Text = "?";
         }
         public void ResetData()
         {
@@ -212,8 +246,13 @@ namespace BaoCaoLuong2018.MyUserControl
                 return false;
             }
         }
-        private void doimautrongkhoang(TextEdit txt, int so_nho, int so_lon)
+        int Start = 0;
+        private void doimautrongkhoang(RichTextBox txt, int so_nho, int so_lon)
         {
+            Start = 0;
+            Start = txt.SelectionStart;
+            txt.Text = txt.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ");
+            txt.SelectionStart = Start;
             if (!string.IsNullOrEmpty(txt.Text))
             {
                 if (txt.Text.Length >= 2)
@@ -223,24 +262,36 @@ namespace BaoCaoLuong2018.MyUserControl
                         txt.BackColor = Color.Red;
                         txt.ForeColor = Color.White;
                         bSubmit = true;
-                        txt.Properties.MaxLength = txt.Text.Length;
+                        txt.MaxLength = txt.Text.Length;
                     }
                     else
                     {
-                        string result = lChar.Find(s => s == txt.Text[txt.Text.Length - 1].ToString());
+                        string result = lChar.Find(s => s == txt.Text[(txt.SelectionStart > 0 ? txt.SelectionStart : txt.Text.Length) - 1].ToString());
                         if (string.IsNullOrEmpty(result))
                         {
-                            txt.BackColor = Color.Red;
-                            txt.ForeColor = Color.White;
-                            bSubmit = true;
-                            txt.Properties.MaxLength = txt.Text.Length;
+
+                            string result1 = lChar.Find(s => s == txt.Text[(txt.SelectionStart > 0 ? txt.SelectionStart : txt.Text.Length) - 2].ToString() + txt.Text[(txt.SelectionStart > 0 ? txt.SelectionStart : txt.Text.Length) - 1].ToString());
+                            if (string.IsNullOrEmpty(result1))
+                            {
+                                txt.BackColor = Color.Red;
+                                txt.ForeColor = Color.White;
+                                bSubmit = true;
+                                txt.MaxLength = txt.Text.Length;
+                            }
+                            else
+                            {
+                                txt.BackColor = Color.White;
+                                txt.ForeColor = Color.Black;
+                                bSubmit = false;
+                                txt.MaxLength = 0;
+                            }
                         }
                         else
                         {
                             txt.BackColor = Color.White;
                             txt.ForeColor = Color.Black;
                             bSubmit = false;
-                            txt.Properties.MaxLength = 0;
+                            txt.MaxLength = 0;
                         }
                     }
                 }
@@ -252,14 +303,14 @@ namespace BaoCaoLuong2018.MyUserControl
                         txt.BackColor = Color.Red;
                         txt.ForeColor = Color.White;
                         bSubmit = true;
-                        txt.Properties.MaxLength = txt.Text.Length;
+                        txt.MaxLength = txt.Text.Length;
                     }
                     else
                     {
                         txt.BackColor = Color.White;
                         txt.ForeColor = Color.Black;
                         bSubmit = false;
-                        txt.Properties.MaxLength = 0;
+                        txt.MaxLength = 0;
                     }
                 }
             }
@@ -268,68 +319,72 @@ namespace BaoCaoLuong2018.MyUserControl
                 txt.BackColor = Color.White;
                 txt.ForeColor = Color.Black;
                 bSubmit = false;
-                txt.Properties.MaxLength = 0;
+                txt.MaxLength = 0;
             }
         }
-        private void DoiMau(int soByteBe, int soBytelon, TextEdit textBox)
-        {
-            if (textBox.Text.IndexOf('?') < 0 && textBox.Text.IndexOf('●') < 0 && !string.IsNullOrEmpty(textBox.Text))
-            {
-                if (textBox.Text.Length >= soByteBe && textBox.Text.Length <= soBytelon)
-                {
-                    textBox.BackColor = Color.White;
-                    textBox.ForeColor = Color.Black;
-                }
-                else
-                {
-                    textBox.BackColor = Color.Red;
-                    textBox.ForeColor = Color.White;
-                }
-            }
-            else
-            {
-                textBox.BackColor = Color.White;
-                textBox.ForeColor = Color.Black;
-            }
-        }
+        //private void DoiMau(int soByteBe, int soBytelon, TextEdit textBox)
+        //{
+        //    if (textBox.Text.IndexOf('?') < 0 && textBox.Text.IndexOf('●') < 0 && !string.IsNullOrEmpty(textBox.Text))
+        //    {
+        //        if (textBox.Text.Length >= soByteBe && textBox.Text.Length <= soBytelon)
+        //        {
+        //            textBox.BackColor = Color.White;
+        //            textBox.ForeColor = Color.Black;
+        //        }
+        //        else
+        //        {
+        //            textBox.BackColor = Color.Red;
+        //            textBox.ForeColor = Color.White;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        textBox.BackColor = Color.White;
+        //        textBox.ForeColor = Color.Black;
+        //    }
+        //}
 
         public void Save_CityO_JP(string Batch, string image)
         {
             Global.Db.Insert_DEJP_CityO(Batch, image, Global.StrUserName, Global.Token, Global.Version,
-                     txt_Truong_016.Text,
-                     txt_Truong_094.Text,
-                     txt_Truong_096.Text,
-                     txt_Truong_098.Text,
-                     txt_Truong_100.Text,
-                     txt_Truong_102.Text,
-                     txt_Truong_104.Text,
-                     txt_Truong_106.Text,
-                     txt_Truong_108.Text);
+                     txt_Truong_016.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_094.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_096.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_098.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_100.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_102.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_104.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_106.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_108.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"));
         }
 
         public void Edit_Save_CityO_JP(string Batch, string image)
         {
             Global.Db.Sua_Va_Luu_DeJP(Batch, image, Global.StrUserName, Global.StrCity,
-                     txt_Truong_016.Text,
-                     txt_Truong_094.Text,
-                     txt_Truong_096.Text,
-                     txt_Truong_098.Text,
-                     txt_Truong_100.Text,
-                     txt_Truong_102.Text,
-                     txt_Truong_104.Text,
-                     txt_Truong_106.Text,
-                     txt_Truong_108.Text);
+                     txt_Truong_016.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_094.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_096.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_098.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_100.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_102.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_104.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_106.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"),
+                     txt_Truong_108.Text.Replace("ｧ", "ｱ").Replace("ｨ", "ｲ").Replace("ｩ", "ｳ").Replace("ｪ", "ｴ").Replace("ｫ", "ｵ").Replace("ｯ", "ﾂ").Replace("ｬ", "ﾔ").Replace("ｭ", "ﾕ").Replace("ｮ", "ﾖ"));
         }
         private void txt_Truong_016_EditValueChanged(object sender, EventArgs e)
         {
             Changed?.Invoke(sender, e);
-            doimautrongkhoang((TextEdit)sender, 0, 50);
+            if (Global.FlagLoadCheck)
+            { return; }
+            doimautrongkhoang((RichTextBox)sender, 0, 50);
         }
 
         private void txt_Truong_094_EditValueChanged(object sender, EventArgs e)
         {
             Changed?.Invoke(sender, e);
-            DoiMau(0, 60, (TextEdit)sender);
+            if (Global.FlagLoadCheck)
+            { return; }
+            doimautrongkhoang((RichTextBox)sender,0, 60);
         }
 
         private void txt_Truong_016_Leave(object sender, EventArgs e)
@@ -403,6 +458,51 @@ namespace BaoCaoLuong2018.MyUserControl
             Settings.Default.Truong108 = txt_Truong_108.Text;
             Settings.Default.Save();
         }
-        
+
+        private void txt_Truong_016_KeyDown(object sender, KeyEventArgs e)
+        {
+            //if (e.KeyCode == Keys.Right)
+            //{
+            //    SendKeys.Send("{Tab}");
+            //}
+            if (e.KeyCode == Keys.Down)
+            {
+                SendKeys.Send("{Tab}");
+            }
+        }
+
+        private void txt_Truong_094_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((/*e.KeyCode == Keys.Right||*/e.KeyCode==Keys.Down) && ((RichTextBox)sender).Name == "txt_Truong_108")
+            {
+                return;
+            }
+            else if (e.KeyCode == Keys.Down && ((RichTextBox)sender).Name == "txt_Truong_100")
+            {
+                return;
+            }
+            else if (e.KeyCode == Keys.Up && ((RichTextBox)sender).Name == "txt_Truong_094")
+            {
+                SendKeys.Send("+{Tab}");
+            }
+            //else if (e.KeyCode == Keys.Right)
+            //{
+            //    SendKeys.Send("{Tab}");
+            //}
+            else if (e.KeyCode == Keys.Down)
+            {
+                SendKeys.Send("{Tab}");
+                SendKeys.Send("{Tab}");
+            }
+            //else if (e.KeyCode == Keys.Left)
+            //{
+            //    SendKeys.Send("+{Tab}");
+            //}
+            else if (e.KeyCode == Keys.Up)
+            {
+                SendKeys.Send("+{Tab}");
+                SendKeys.Send("+{Tab}");
+            }
+        }
     }
 }

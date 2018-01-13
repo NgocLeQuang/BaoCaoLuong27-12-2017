@@ -64,6 +64,10 @@
             this.txt_Truong_006 = new DevExpress.XtraEditors.TextEdit();
             this.txt_Truong_016 = new DevExpress.XtraEditors.TextEdit();
             this.txt_Truong_017 = new DevExpress.XtraEditors.TextEdit();
+            this.cbb_FileTXT = new System.Windows.Forms.ComboBox();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.btn_AddFileTXT = new DevExpress.XtraEditors.SimpleButton();
+            this.btn_DeleteFileTXT = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.txt_BatchName.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_PathFolder.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_Location.Properties)).BeginInit();
@@ -270,13 +274,15 @@
             // 
             // txt_LoaiPhieu
             // 
-            this.txt_LoaiPhieu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.txt_LoaiPhieu.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_LoaiPhieu.FormattingEnabled = true;
             this.txt_LoaiPhieu.Location = new System.Drawing.Point(153, 275);
             this.txt_LoaiPhieu.Name = "txt_LoaiPhieu";
             this.txt_LoaiPhieu.Size = new System.Drawing.Size(100, 24);
             this.txt_LoaiPhieu.TabIndex = 8;
+            this.txt_LoaiPhieu.SelectedIndexChanged += new System.EventHandler(this.txt_LoaiPhieu_SelectedIndexChanged);
+            this.txt_LoaiPhieu.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbb_FileTXT_KeyDown);
+            this.txt_LoaiPhieu.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbb_FileTXT_KeyPress);
             // 
             // lb_SobatchHoanThanh
             // 
@@ -402,11 +408,54 @@
             this.txt_Truong_017.Size = new System.Drawing.Size(160, 20);
             this.txt_Truong_017.TabIndex = 22;
             // 
+            // cbb_FileTXT
+            // 
+            this.cbb_FileTXT.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbb_FileTXT.FormattingEnabled = true;
+            this.cbb_FileTXT.Location = new System.Drawing.Point(320, 275);
+            this.cbb_FileTXT.Name = "cbb_FileTXT";
+            this.cbb_FileTXT.Size = new System.Drawing.Size(262, 24);
+            this.cbb_FileTXT.TabIndex = 24;
+            this.cbb_FileTXT.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbb_FileTXT_KeyDown);
+            this.cbb_FileTXT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbb_FileTXT_KeyPress);
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl13.Appearance.Options.UseFont = true;
+            this.labelControl13.Location = new System.Drawing.Point(267, 278);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(47, 16);
+            this.labelControl13.TabIndex = 23;
+            this.labelControl13.Text = "File txt :";
+            // 
+            // btn_AddFileTXT
+            // 
+            this.btn_AddFileTXT.Location = new System.Drawing.Point(588, 274);
+            this.btn_AddFileTXT.Name = "btn_AddFileTXT";
+            this.btn_AddFileTXT.Size = new System.Drawing.Size(93, 25);
+            this.btn_AddFileTXT.TabIndex = 25;
+            this.btn_AddFileTXT.Text = "Add file TXT";
+            this.btn_AddFileTXT.Click += new System.EventHandler(this.btn_AddFileTXT_Click);
+            // 
+            // btn_DeleteFileTXT
+            // 
+            this.btn_DeleteFileTXT.Location = new System.Drawing.Point(690, 274);
+            this.btn_DeleteFileTXT.Name = "btn_DeleteFileTXT";
+            this.btn_DeleteFileTXT.Size = new System.Drawing.Size(93, 25);
+            this.btn_DeleteFileTXT.TabIndex = 25;
+            this.btn_DeleteFileTXT.Text = "Delete file TXT";
+            this.btn_DeleteFileTXT.Click += new System.EventHandler(this.btn_DeleteFileTXT_Click);
+            // 
             // frm_CreateBatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 473);
+            this.Controls.Add(this.btn_DeleteFileTXT);
+            this.Controls.Add(this.btn_AddFileTXT);
+            this.Controls.Add(this.cbb_FileTXT);
+            this.Controls.Add(this.labelControl13);
             this.Controls.Add(this.txt_Truong_017);
             this.Controls.Add(this.txt_Truong_016);
             this.Controls.Add(this.txt_Truong_006);
@@ -444,7 +493,7 @@
             this.MaximizeBox = false;
             this.Name = "frm_CreateBatch";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tạo batch mới";
+            this.Text = ";";
             this.Load += new System.EventHandler(this.frm_CreateBatch_Load);
             ((System.ComponentModel.ISupportInitialize)(this.txt_BatchName.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txt_PathFolder.Properties)).EndInit();
@@ -499,5 +548,9 @@
         private DevExpress.XtraEditors.TextEdit txt_Truong_006;
         private DevExpress.XtraEditors.TextEdit txt_Truong_016;
         private DevExpress.XtraEditors.TextEdit txt_Truong_017;
+        private System.Windows.Forms.ComboBox cbb_FileTXT;
+        private DevExpress.XtraEditors.LabelControl labelControl13;
+        private DevExpress.XtraEditors.SimpleButton btn_AddFileTXT;
+        private DevExpress.XtraEditors.SimpleButton btn_DeleteFileTXT;
     }
 }

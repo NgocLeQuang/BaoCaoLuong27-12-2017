@@ -50,6 +50,10 @@ namespace BaoCaoLuong2018.MyForm
                     Global.Db = new DataBaoCaoLuongDataContext(@"Data Source=192.168.165.10\BPOSERVER;Initial Catalog=BaoCaoLuong2018;Persist Security Info=True;User ID=baocaoluong2018;Password=123@123a");
                     Global.Db.CommandTimeout = 5 * 60; // 5 Mins
                     Global.DbBpo = new DataBPODataContext(@"Data Source=192.168.165.10;Initial Catalog=DatabaseDataEntryBPO;Persist Security Info=True;User ID=bpoentry;Password=123@123a");
+                    BaoCaoLuonng2017.Global.Webservice = "http://192.168.165.10:8888/BaoCaoLuong2017_CityS/";
+                    BaoCaoLuonng2017.Global.db_BCL = new BaoCaoLuonng2017.DataBaoCaoLuongDataContext(@"Data Source=192.168.165.10\BPOSERVER;Initial Catalog=BaoCaoLuong2017_CityS;Persist Security Info=True;User ID=baocaoluong2018;Password=123@123a");
+                    BaoCaoLuonng2017.Global.db_BCL.CommandTimeout = 5 * 60;
+                    BaoCaoLuonng2017.Global.db_BPO = new BaoCaoLuonng2017.DataEntryBPODataContext(@"Data Source=192.168.165.10;Initial Catalog=DatabaseDataEntryBPO;Persist Security Info=True;User ID=bpoentry;Password=123@123a");
                 }
                 else if (rb_Khac.Checked)
                 {
@@ -59,6 +63,10 @@ namespace BaoCaoLuong2018.MyForm
                     Global.Db = new DataBaoCaoLuongDataContext(@"Data Source=101.99.53.121,3605;Initial Catalog=BaoCaoLuong2018;Persist Security Info=True;Network Library=DBMSSOCN;User ID=baocaoluong2018;Password=123@123a");
                     Global.Db.CommandTimeout = 5 * 60; // 5 Mins
                     Global.DbBpo = new DataBPODataContext(@"Data Source=101.99.53.121,3605;Initial Catalog=DatabaseDataEntryBPO;Persist Security Info=True;Network Library=DBMSSOCN;User ID=bpoentry;Password=123@123a");
+                    BaoCaoLuonng2017.Global.Webservice = "http://101.99.53.121:3606/BaoCaoLuong2017_CityS/";
+                    BaoCaoLuonng2017.Global.db_BCL = new BaoCaoLuonng2017.DataBaoCaoLuongDataContext(@"Data Source=101.99.53.121,3605;Initial Catalog=BaoCaoLuong2017_CityS;Persist Security Info=True;User ID=baocaoluong2018;Password=123@123a");
+                    BaoCaoLuonng2017.Global.db_BCL.CommandTimeout = 5 * 60;
+                    BaoCaoLuonng2017.Global.db_BPO = new BaoCaoLuonng2017.DataEntryBPODataContext(@"Data Source=101.99.53.121,3605;Initial Catalog=DatabaseDataEntryBPO;Persist Security Info=True;Network Library=DBMSSOCN;User ID=bpoentry;Password=123@123a");
                 }
             }
             catch (Exception i)

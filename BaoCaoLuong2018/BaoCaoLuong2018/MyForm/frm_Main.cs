@@ -8,7 +8,7 @@ using BaoCaoLuong2018.Properties;
 
 namespace BaoCaoLuong2018.MyForm
 {
-    public partial class frm_Main : DevExpress.XtraEditors.XtraForm
+    public partial class frm_Main : XtraForm
     {
         public frm_Main()
         {
@@ -21,7 +21,7 @@ namespace BaoCaoLuong2018.MyForm
         bool FlagLoad = false;
         private void btn_Logout_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            DialogResult = System.Windows.Forms.DialogResult.Yes;
+            DialogResult = DialogResult.Yes;
         }
 
         private void btn_Exit_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -49,6 +49,9 @@ namespace BaoCaoLuong2018.MyForm
                 tab_CityO_Loai2.PageVisible = false;
                 tab_CityO_Loai3.PageVisible = false;
                 tab_CityO_JP.PageVisible = false;
+                tab_CityN_Loai1.PageVisible = false;
+                tab_CityN_Loai3.PageVisible = false;
+                tab_CityN_LoaiJP.PageVisible = false;
 
                 menu_QuanLy.Enabled = false;
                 menu_Check.Enabled = false;
@@ -59,9 +62,9 @@ namespace BaoCaoLuong2018.MyForm
                 btn_Submit.Enabled = false;
                 btn_Submit_Logout.Enabled = false;
                 Folder = "";
-
                 lb_fBatchName.Text = Global.StrBatch;
                 lb_UserName.Text = Global.StrUserName;
+                lb_City.Text = Global.StrCity;
                 Global.FlagLoad = false;
                 var checkDisableUser = (from w in Global.DbBpo.tbl_Users where w.Username == Global.StrUserName select w.IsDelete).FirstOrDefault();
                 Global.DataNote = (from w in Global.Db.tbl_Notes select new Global.dataNote_ { City = w.City, LoaiPhieu = w.LoaiPhieu, Truong = w.Truong, Note = w.Note }).ToList();
@@ -80,28 +83,47 @@ namespace BaoCaoLuong2018.MyForm
                     {
                         ChiaUser = 1;
                     }
-                    else
+                    else if (ktBatch == false)
                     {
                         ChiaUser = 0;
+                    }
+                    else
+                    {
+                        ChiaUser = -1;
                     }
                     var ktUser = (from w in Global.DbBpo.CheckLevelUser(Global.StrUserName) select w.NotGoodUser).FirstOrDefault();
                     if (ktUser == true)
                         LevelUser = 0;
                     else if (ktUser == false)
                         LevelUser = 1;
+                    else
+                        LevelUser = -1;
                     lb_TongPhieu.Text = (from w in Global.Db.tbl_Batches where w.BatchID == Global.StrBatchID & w.City == Global.StrCity select w.NumberImage).FirstOrDefault();
                     setValue();
                     if (Global.StrRole.ToUpper() == "DESO")
                     {
                         if (Global.StrCity == "CityO")
                         {
-                            tab_CityO_Loai1.PageVisible = true;
+                            uC_CityO_Loai11.UC_CityO_Loai1_Load(null, null);
                             uC_CityO_Loai3_DeSo1.UC_CityO_Loai3_DeSo_Load(null, null);
+                            uC_CityO_Loai11.Focus += UC_CityO_Loai3_DeSo1_Focus;
                             uC_CityO_Loai3_DeSo1.Focus += UC_CityO_Loai3_DeSo1_Focus;
+                            tab_CityO_Loai1.PageVisible = true;
                             tab_CityO_Loai2.PageVisible = true;
                             tab_CityO_Loai3.PageVisible = true;
                             uC_CityO_Loai11.ResetData();
                             uC_CityO_Loai3_DeSo1.ResetData();
+                        }
+                        else if(Global.StrCity=="CityN")
+                        {
+                            uC_CityN_Loai11.UC_CityN_Loai1_Load(null, null);
+                            uC_CityN_Loai31.UC_CityN_Loai3_Load(null, null);
+                            uC_CityN_Loai11.Focus += UC_CityO_Loai3_DeSo1_Focus;
+                            uC_CityN_Loai31.Focus += UC_CityO_Loai3_DeSo1_Focus;
+                            tab_CityN_Loai1.PageVisible = true;
+                            tab_CityN_Loai3.PageVisible = true;
+                            uC_CityN_Loai11.ResetData();
+                            uC_CityN_Loai31.ResetData();
                         }
                     }
                     else if (Global.StrRole.ToUpper() == "DEJP")
@@ -109,8 +131,18 @@ namespace BaoCaoLuong2018.MyForm
                         if (Global.StrCity == "CityO")
                         {
                             splitMain.SplitterPosition = 525;
+                            uC_CityO_JP1.UC_CityO_JP_Load(null, null);
+                            uC_CityO_JP1.Focus += UC_CityO_Loai3_DeSo1_Focus;
                             tab_CityO_JP.PageVisible = true;
                             uC_CityO_JP1.ResetData();
+                        }
+                        else if(Global.StrCity=="CityN")
+                        {
+                            splitMain.SplitterPosition = 525;
+                            uC_CityN_JP1.UC_CityN_JP_Load(null, null);
+                            uC_CityN_JP1.Focus += UC_CityO_Loai3_DeSo1_Focus;
+                            tab_CityN_LoaiJP.PageVisible = true;
+                            uC_CityN_JP1.ResetData();
                         }
                     }
                     menu_QuanLy.Enabled = false;
@@ -168,21 +200,16 @@ namespace BaoCaoLuong2018.MyForm
         
         private void setValue()
         {
-            if (Global.StrRole.ToUpper() == "DESO")
-            {
-                var a = (from w in Global.Db.GetSoLuongPhieu(Global.StrBatchID, Global.StrCity, Global.StrUserName,LevelUser+"" ,ChiaUser +"","DESO") select new { w.SoPhieuCon, w.SoPhieuNhap }).FirstOrDefault();
-                lb_SoPhieuCon.Text = a.SoPhieuCon + "";
-                lb_SoPhieuNhap.Text = a.SoPhieuNhap + "";
-            }
-            else if (Global.StrRole.ToUpper() == "DEJP")
-            {
-                var a = (from w in Global.Db.GetSoLuongPhieu(Global.StrBatchID, Global.StrCity, Global.StrUserName, LevelUser + "", ChiaUser + "", "DEJP") select new { w.SoPhieuCon, w.SoPhieuNhap }).FirstOrDefault();
-                lb_SoPhieuCon.Text = a.SoPhieuCon + "";
-                lb_SoPhieuNhap.Text = a.SoPhieuNhap + "";
-            }
+            var a = (from w in Global.Db.GetSoLuongPhieu(Global.StrBatchID, Global.StrCity, Global.StrUserName,LevelUser+"" ,ChiaUser +"",Global.StrRole.ToUpper()) select new { w.SoPhieuCon, w.SoPhieuNhap }).FirstOrDefault();
+            lb_SoPhieuCon.Text = a.SoPhieuCon + "";
+            lb_SoPhieuNhap.Text = a.SoPhieuNhap + "";
         }
-
-        private string getFilename = "";
+        public struct ImageImformation
+        {
+            public string ImageName { set; get; }
+            public string LoaiPhieu { set; get; }
+        }
+        private ImageImformation getFilename=new ImageImformation();
 
         public void SetFieldLocation_IsNull()
         {
@@ -191,108 +218,135 @@ namespace BaoCaoLuong2018.MyForm
             Settings.Default.ImageID = lb_IdImage.Text;
             Settings.Default.UserInput = Global.StrUserName;
             Settings.Default.LoaiPhieu = "";
-            if (Global.StrCity == "CityO")
-            {
-                Settings.Default.Truong15 = "";
-                Settings.Default.Truong16 = "";
-                Settings.Default.Truong17 = "";
-                Settings.Default.Truong18 = "";
-                Settings.Default.Truong19 = "";
-                Settings.Default.Truong21 = "";
-                Settings.Default.Truong22 = "";
-                Settings.Default.Truong23 = "";
-                Settings.Default.Truong24 = "";
-                Settings.Default.Truong25 = "";
-                Settings.Default.Truong26 = "";
-                Settings.Default.Truong27 = "";
-                Settings.Default.Truong28 = "";
-                Settings.Default.Truong30 = "";
-                Settings.Default.Truong31 = "";
-                Settings.Default.Truong32 = "";
-                Settings.Default.Truong33 = "";
-                Settings.Default.Truong34 = "";
-                Settings.Default.Truong35 = "";
-                Settings.Default.Truong36 = "";
-                Settings.Default.Truong37 = "";
-                Settings.Default.Truong38 = "";
-                Settings.Default.Truong39 = "";
-                Settings.Default.Truong40 = "";
-                Settings.Default.Truong41 = "";
-                Settings.Default.Truong42 = "";
-                Settings.Default.Truong43 = "";
-                Settings.Default.Truong44 = "";
-                Settings.Default.Truong45 = "";
-                Settings.Default.Truong46 = "";
-                Settings.Default.Truong47 = "";
-                Settings.Default.Truong48 = "";
-                Settings.Default.Truong49 = "";
-                Settings.Default.Truong50 = "";
-                Settings.Default.Truong51 = "";
-                Settings.Default.Truong52 = "";
-                Settings.Default.Truong53 = "";
-                Settings.Default.Truong54 = "";
-                Settings.Default.Truong55 = "";
-                Settings.Default.Truong56 = "";
-                Settings.Default.Truong57 = "";
-                Settings.Default.Truong58 = "";
-                Settings.Default.Truong59 = "";
-                Settings.Default.Truong60 = "";
-                Settings.Default.Truong61_1 = "";
-                Settings.Default.Truong61_2 = "";
-                Settings.Default.Truong61_3 = "";
-                Settings.Default.Truong61_4 = "";
-                Settings.Default.Truong62 = "";
-                Settings.Default.Truong63 = "";
-                Settings.Default.Truong64 = "";
-                Settings.Default.Truong65 = "";
-                Settings.Default.Truong66 = "";
-                Settings.Default.Truong67 = "";
-                Settings.Default.Truong68 = "";
-                Settings.Default.Truong69 = "";
-                Settings.Default.Truong70 = "";
-                Settings.Default.Truong71 = "";
-                Settings.Default.Truong72 = "";
-                Settings.Default.Truong73 = "";
-                Settings.Default.Truong74 = "";
-                Settings.Default.Truong75 = "";
-                Settings.Default.Truong76 = "";
-                Settings.Default.Truong77 = "";
-                Settings.Default.Truong78 = "";
-                Settings.Default.Truong79 = "";
-                Settings.Default.Truong80 = "";
-                Settings.Default.Truong81 = "";
-                Settings.Default.Truong82 = "";
-                Settings.Default.Truong83 = "";
-                Settings.Default.Truong84 = "";
-                Settings.Default.Truong85 = "";
-                Settings.Default.Truong86 = "";
-                Settings.Default.Truong87 = "";
-                Settings.Default.Truong88 = "";
-                Settings.Default.Truong89 = "";
-                Settings.Default.Truong90 = "";
-                Settings.Default.Truong91 = "";
-                Settings.Default.Truong92 = "";
-                Settings.Default.Truong93 = "";
-                Settings.Default.Truong94 = "";
-                Settings.Default.Truong95 = "";
-                Settings.Default.Truong96 = "";
-                Settings.Default.Truong97 = "";
-                Settings.Default.Truong98 = "";
-                Settings.Default.Truong99 = "";
-                Settings.Default.Truong100 = "";
-                Settings.Default.Truong101 = "";
-                Settings.Default.Truong102 = "";
-                Settings.Default.Truong103 = "";
-                Settings.Default.Truong104 = "";
-                Settings.Default.Truong105 = "";
-                Settings.Default.Truong106 = "";
-                Settings.Default.Truong107 = "";
-                Settings.Default.Truong108 = "";
-                Settings.Default.Truong109 = "";
-                Settings.Default.Truong110 = "";
-                Settings.Default.Truong111 = "";
-                Settings.Default.Truong112 = "";
-            }
+            Settings.Default.Truong11 = "";
+            Settings.Default.Truong14 = "";
+            Settings.Default.Truong15 = "";
+            Settings.Default.Truong16 = "";
+            Settings.Default.Truong17 = "";
+            Settings.Default.Truong18 = "";
+            Settings.Default.Truong19 = "";
+            Settings.Default.Truong20 = "";
+            Settings.Default.Truong21 = "";
+            Settings.Default.Truong22 = "";
+            Settings.Default.Truong23 = "";
+            Settings.Default.Truong24 = "";
+            Settings.Default.Truong25 = "";
+            Settings.Default.Truong26 = "";
+            Settings.Default.Truong27 = "";
+            Settings.Default.Truong28 = "";
+            Settings.Default.Truong30 = "";
+            Settings.Default.Truong31 = "";
+            Settings.Default.Truong32 = "";
+            Settings.Default.Truong33 = "";
+            Settings.Default.Truong34 = "";
+            Settings.Default.Truong35 = "";
+            Settings.Default.Truong36 = "";
+            Settings.Default.Truong37 = "";
+            Settings.Default.Truong38 = "";
+            Settings.Default.Truong39 = "";
+            Settings.Default.Truong40 = "";
+            Settings.Default.Truong41 = "";
+            Settings.Default.Truong42 = "";
+            Settings.Default.Truong43 = "";
+            Settings.Default.Truong44 = "";
+            Settings.Default.Truong45 = "";
+            Settings.Default.Truong46 = "";
+            Settings.Default.Truong47 = "";
+            Settings.Default.Truong48 = "";
+            Settings.Default.Truong49 = "";
+            Settings.Default.Truong50 = "";
+            Settings.Default.Truong51 = "";
+            Settings.Default.Truong52 = "";
+            Settings.Default.Truong53 = "";
+            Settings.Default.Truong54 = "";
+            Settings.Default.Truong55 = "";
+            Settings.Default.Truong56 = "";
+            Settings.Default.Truong57 = "";
+            Settings.Default.Truong58 = "";
+            Settings.Default.Truong59 = "";
+            Settings.Default.Truong60 = "";
+            Settings.Default.Truong62 = "";
+            Settings.Default.Truong63 = "";
+            Settings.Default.Truong64 = "";
+            Settings.Default.Truong65 = "";
+            Settings.Default.Truong66 = "";
+            Settings.Default.Truong67 = "";
+            Settings.Default.Truong68 = "";
+            Settings.Default.Truong69 = "";
+            Settings.Default.Truong70 = "";
+            Settings.Default.Truong71 = "";
+            Settings.Default.Truong72 = "";
+            Settings.Default.Truong73 = "";
+            Settings.Default.Truong74 = "";
+            Settings.Default.Truong75 = "";
+            Settings.Default.Truong76 = "";
+            Settings.Default.Truong77 = "";
+            Settings.Default.Truong78 = "";
+            Settings.Default.Truong79 = "";
+            Settings.Default.Truong80 = "";
+            Settings.Default.Truong81 = "";
+            Settings.Default.Truong82 = "";
+            Settings.Default.Truong83 = "";
+            Settings.Default.Truong84 = "";
+            Settings.Default.Truong85 = "";
+            Settings.Default.Truong86 = "";
+            Settings.Default.Truong87 = "";
+            Settings.Default.Truong88 = "";
+            Settings.Default.Truong89 = "";
+            Settings.Default.Truong90 = "";
+            Settings.Default.Truong91 = "";
+            Settings.Default.Truong92 = "";
+            Settings.Default.Truong93 = "";
+            Settings.Default.Truong94 = "";
+            Settings.Default.Truong95 = "";
+            Settings.Default.Truong96 = "";
+            Settings.Default.Truong97 = "";
+            Settings.Default.Truong98 = "";
+            Settings.Default.Truong99 = "";
+            Settings.Default.Truong100 = "";
+            Settings.Default.Truong101 = "";
+            Settings.Default.Truong102 = "";
+            Settings.Default.Truong103 = "";
+            Settings.Default.Truong104 = "";
+            Settings.Default.Truong105 = "";
+            Settings.Default.Truong106 = "";
+            Settings.Default.Truong107 = "";
+            Settings.Default.Truong108 = "";
+            Settings.Default.Truong109 = "";
+            Settings.Default.Truong110 = "";
+            Settings.Default.Truong111 = "";
+            Settings.Default.Truong112 = "";
+            Settings.Default.Truong114 = "";
+            Settings.Default.Truong116 = "";
+            Settings.Default.Truong118 = "";
+            Settings.Default.Truong120 = "";
+            Settings.Default.Truong122 = "";
+            Settings.Default.Truong124 = "";
+            Settings.Default.Truong128 = "";
+            Settings.Default.Truong130 = "";
+            Settings.Default.Truong132 = "";
+            Settings.Default.Truong134 = "";
+            Settings.Default.Truong136 = "";
+            Settings.Default.Truong140 = "";
+            Settings.Default.Truong142 = "";
+            Settings.Default.Truong144 = "";
+            Settings.Default.Truong146 = "";
+            Settings.Default.Truong148 = "";
+            Settings.Default.Truong150 = "";
+            Settings.Default.Truong138_1 = "";
+            Settings.Default.Truong138_2 = "";
+            Settings.Default.Truong138_3 = "";
+            Settings.Default.Truong138_4 = "";
+            Settings.Default.Truong28_1 = "";
+            Settings.Default.Truong28_2 = "";
+            Settings.Default.Truong61_1 = "";
+            Settings.Default.Truong61_2 = "";
+            Settings.Default.Truong61_3 = "";
+            Settings.Default.Truong61_4 = "";
+            Settings.Default.Truong74_1 = "";
+            Settings.Default.Truong74_2 = "";
+            Settings.Default.Truong74_3 = "";
+            Settings.Default.Truong74_4 = "";
             Settings.Default.QC = false;
             Settings.Default.Save();
         }
@@ -391,6 +445,97 @@ namespace BaoCaoLuong2018.MyForm
                     uC_CityO_Loai3_DeSo1.txt_Truong_111.Text = Settings.Default.Truong111;
                 }
             }
+            else if (Global.StrCity == "CityN")
+            {
+                if (Settings.Default.LoaiPhieu == "Loai1")
+                {
+                    uC_CityN_Loai11.chk_QC.Checked = Settings.Default.QC;
+                    uC_CityN_Loai11.txt_Truong_011.Text = Settings.Default.Truong11;
+                    uC_CityN_Loai11.txt_Truong_014.Text = Settings.Default.Truong14;
+                    uC_CityN_Loai11.txt_Truong_026.Text = Settings.Default.Truong26;
+                    uC_CityN_Loai11.txt_Truong_016.Text = Settings.Default.Truong16;
+                    uC_CityN_Loai11.txt_Truong_018.Text = Settings.Default.Truong18;
+                    uC_CityN_Loai11.txt_Truong_020.Text = Settings.Default.Truong20;
+                    uC_CityN_Loai11.txt_Truong_022.Text = Settings.Default.Truong22;
+                    uC_CityN_Loai11.txt_Truong_024.Text = Settings.Default.Truong24;
+                    uC_CityN_Loai11.txt_Truong_028_1.Text = Settings.Default.Truong28_1;
+                    uC_CityN_Loai11.txt_Truong_028_2.Text = Settings.Default.Truong28_2;
+                }
+                else if (Settings.Default.LoaiPhieu == "Loai3")
+                {
+                    uC_CityN_Loai31.chk_QC.Checked = Settings.Default.QC;
+                    uC_CityN_Loai31.txt_Truong_011.Text = Settings.Default.Truong11;
+                    uC_CityN_Loai31.txt_Truong_014.Text = Settings.Default.Truong14;
+                    uC_CityN_Loai31.txt_Truong_016.Text = Settings.Default.Truong16;
+                    uC_CityN_Loai31.txt_Truong_020.Text = Settings.Default.Truong20;
+                    uC_CityN_Loai31.txt_Truong_022.Text = Settings.Default.Truong22;
+                    uC_CityN_Loai31.txt_Truong_024.Text = Settings.Default.Truong24;
+                    uC_CityN_Loai31.txt_Truong_026.Text = Settings.Default.Truong26;
+                    uC_CityN_Loai31.txt_Truong_028.Text = Settings.Default.Truong28;
+                    uC_CityN_Loai31.txt_Truong_030.Text = Settings.Default.Truong30;
+                    uC_CityN_Loai31.txt_Truong_032.Text = Settings.Default.Truong32;
+                    uC_CityN_Loai31.txt_Truong_034.Text = Settings.Default.Truong34;
+                    uC_CityN_Loai31.txt_Truong_036.Text = Settings.Default.Truong36;
+                    uC_CityN_Loai31.txt_Truong_038.Text = Settings.Default.Truong38;
+                    uC_CityN_Loai31.txt_Truong_040.Text = Settings.Default.Truong40;
+                    uC_CityN_Loai31.txt_Truong_042.Text = Settings.Default.Truong42;
+                    uC_CityN_Loai31.txt_Truong_044.Text = Settings.Default.Truong44;
+                    uC_CityN_Loai31.txt_Truong_046.Text = Settings.Default.Truong46;
+                    uC_CityN_Loai31.txt_Truong_048.Text = Settings.Default.Truong48;
+                    uC_CityN_Loai31.txt_Truong_050.Text = Settings.Default.Truong50;
+                    uC_CityN_Loai31.txt_Truong_052.Text = Settings.Default.Truong52;
+                    uC_CityN_Loai31.txt_Truong_054.Text = Settings.Default.Truong54;
+                    uC_CityN_Loai31.txt_Truong_056.Text = Settings.Default.Truong56;
+                    uC_CityN_Loai31.txt_Truong_058.Text = Settings.Default.Truong58;
+                    uC_CityN_Loai31.txt_Truong_060.Text = Settings.Default.Truong60;
+                    uC_CityN_Loai31.txt_Truong_062.Text = Settings.Default.Truong62;
+                    uC_CityN_Loai31.txt_Truong_064.Text = Settings.Default.Truong64;
+                    uC_CityN_Loai31.txt_Truong_066.Text = Settings.Default.Truong66;
+                    uC_CityN_Loai31.txt_Truong_068.Text = Settings.Default.Truong68;
+                    uC_CityN_Loai31.txt_Truong_072.Text = Settings.Default.Truong72;
+                    uC_CityN_Loai31.txt_Truong_074_1.Text = Settings.Default.Truong74_1;
+                    uC_CityN_Loai31.txt_Truong_074_2.Text = Settings.Default.Truong74_2;
+                    uC_CityN_Loai31.txt_Truong_074_3.Text = Settings.Default.Truong74_3;
+                    uC_CityN_Loai31.txt_Truong_076.Text = Settings.Default.Truong76;
+                    uC_CityN_Loai31.txt_Truong_082.Text = Settings.Default.Truong82;
+                    uC_CityN_Loai31.txt_Truong_084.Text = Settings.Default.Truong84;
+                    uC_CityN_Loai31.txt_Truong_086.Text = Settings.Default.Truong86;
+                    uC_CityN_Loai31.txt_Truong_088.Text = Settings.Default.Truong88;
+                    uC_CityN_Loai31.txt_Truong_090.Text = Settings.Default.Truong90;
+                    uC_CityN_Loai31.txt_Truong_092.Text = Settings.Default.Truong92;
+                    uC_CityN_Loai31.txt_Truong_094.Text = Settings.Default.Truong94;
+                    uC_CityN_Loai31.txt_Truong_096.Text = Settings.Default.Truong96;
+                    uC_CityN_Loai31.txt_Truong_098.Text = Settings.Default.Truong98;
+                    uC_CityN_Loai31.txt_Truong_100.Text = Settings.Default.Truong100;
+                    uC_CityN_Loai31.txt_Truong_102.Text = Settings.Default.Truong102;
+                    uC_CityN_Loai31.txt_Truong_104.Text = Settings.Default.Truong104;
+                    uC_CityN_Loai31.txt_Truong_106.Text = Settings.Default.Truong106;
+                    uC_CityN_Loai31.txt_Truong_108.Text = Settings.Default.Truong108;
+                    uC_CityN_Loai31.txt_Truong_110.Text = Settings.Default.Truong110;
+                    uC_CityN_Loai31.txt_Truong_112.Text = Settings.Default.Truong112;
+                    uC_CityN_Loai31.txt_Truong_114.Text = Settings.Default.Truong114;
+                    uC_CityN_Loai31.txt_Truong_116.Text = Settings.Default.Truong116;
+                    uC_CityN_Loai31.txt_Truong_118.Text = Settings.Default.Truong118;
+                    uC_CityN_Loai31.txt_Truong_120.Text = Settings.Default.Truong120;
+                    uC_CityN_Loai31.txt_Truong_122.Text = Settings.Default.Truong122;
+                    uC_CityN_Loai31.txt_Truong_124.Text = Settings.Default.Truong124;
+                    uC_CityN_Loai31.txt_Truong_126.Text = Settings.Default.Truong126;
+                    uC_CityN_Loai31.txt_Truong_128.Text = Settings.Default.Truong128;
+                    uC_CityN_Loai31.txt_Truong_130.Text = Settings.Default.Truong130;
+                    uC_CityN_Loai31.txt_Truong_132.Text = Settings.Default.Truong132;
+                    uC_CityN_Loai31.txt_Truong_134.Text = Settings.Default.Truong134;
+                    uC_CityN_Loai31.txt_Truong_136.Text = Settings.Default.Truong136;
+                    uC_CityN_Loai31.txt_Truong_138_1.Text = Settings.Default.Truong138_1;
+                    uC_CityN_Loai31.txt_Truong_138_2.Text = Settings.Default.Truong138_2;
+                    uC_CityN_Loai31.txt_Truong_138_3.Text = Settings.Default.Truong138_3;
+                    uC_CityN_Loai31.txt_Truong_138_4.Text = Settings.Default.Truong138_4;
+                    uC_CityN_Loai31.txt_Truong_140.Text = Settings.Default.Truong140;
+                    uC_CityN_Loai31.txt_Truong_142.Text = Settings.Default.Truong142;
+                    uC_CityN_Loai31.txt_Truong_144.Text = Settings.Default.Truong144;
+                    uC_CityN_Loai31.txt_Truong_146.Text = Settings.Default.Truong146;
+                    uC_CityN_Loai31.txt_Truong_150.Text = Settings.Default.Truong150;
+                }
+            }
         }
         public void SetFieldLocation_IsNull_JP()
         {
@@ -398,18 +543,17 @@ namespace BaoCaoLuong2018.MyForm
             Settings.Default.BatchID = Global.StrBatchID;
             Settings.Default.ImageID = lb_IdImage.Text;
             Settings.Default.UserInput = Global.StrUserName;
-            if (Global.StrCity == "CityO")
-            {
-                Settings.Default.Truong16 = "";
-                Settings.Default.Truong94 = "";
-                Settings.Default.Truong96 = "";
-                Settings.Default.Truong98 = "";
-                Settings.Default.Truong100 = "";
-                Settings.Default.Truong102 = "";
-                Settings.Default.Truong104 = "";
-                Settings.Default.Truong106 = "";
-                Settings.Default.Truong108 = "";
-            }
+            Settings.Default.Truong16 = "";
+            Settings.Default.Truong94 = "";
+            Settings.Default.Truong96 = "";
+            Settings.Default.Truong98 = "";
+            Settings.Default.Truong100 = "";
+            Settings.Default.Truong102 = "";
+            Settings.Default.Truong104 = "";
+            Settings.Default.Truong106 = "";
+            Settings.Default.Truong108 = "";
+            Settings.Default.Truong18 = "";
+            Settings.Default.Truong148 = "";
             Settings.Default.QC = false;
             Settings.Default.Save();
         }
@@ -427,29 +571,42 @@ namespace BaoCaoLuong2018.MyForm
                 uC_CityO_JP1.txt_Truong_106.Text = Settings.Default.Truong106;
                 uC_CityO_JP1.txt_Truong_108.Text = Settings.Default.Truong108;
             }
-        }
+            else if (Global.StrCity == "CityN")
+            {
+                uC_CityN_JP1.txt_Truong_018.Text = Settings.Default.Truong18;
+                uC_CityN_JP1.txt_Truong_148.Text = Settings.Default.Truong148;
+            }
+            }
+        string LoaiPhieu_TXT = "";
         private string GetImage()
         {
             lb_IdImage.Text = "";
-            getFilename = "";
+            LoaiPhieu_TXT = "";
+            getFilename.ImageName = "";
+            getFilename.LoaiPhieu = "";
             Global.FlagChangeSave = true;
             if (ChiaUser == 1)  //Batch có chia User nhập
             {
                 if (LevelUser == 1) //User Level Good
                 {
-                    getFilename = (from w in Global.Db.GetImage_MissImage(Global.StrBatchID, Global.StrUserName, Global.StrCity, Global.StrRole) select w.Column1).FirstOrDefault();
-                    if (string.IsNullOrEmpty(getFilename))
+                    var temp = (from w in Global.Db.GetImage_MissImage_New(Global.StrBatchID, Global.StrUserName, Global.StrCity, Global.StrRole) select new { w.IDImage,w.LoaiPhieu }).ToList();
+                    getFilename.ImageName = temp[0]?.IDImage;
+                    getFilename.LoaiPhieu = temp[0]?.LoaiPhieu;
+                    if (string.IsNullOrEmpty(getFilename.ImageName))
                     {
                         try
                         {
-                            getFilename = (from w in Global.Db.GetImage_Group_Good(Global.StrBatchID, lb_UserName.Text, Global.StrCity, Global.StrRole) select w.Column1).FirstOrDefault();
-                            if (string.IsNullOrEmpty(getFilename))
+                            var temp1 = (from w in Global.Db.GetImage_Group_Good_new(Global.StrBatchID, lb_UserName.Text, Global.StrCity, Global.StrRole) select new { w.IDImage, w.LoaiPhieu }).ToList();
+                            getFilename.ImageName = temp1[0]?.IDImage;
+                            getFilename.LoaiPhieu = temp1[0]?.LoaiPhieu;
+                            if (string.IsNullOrEmpty(getFilename.ImageName))
                             {
                                 return "NULL";
                             }
-                            lb_IdImage.Text = getFilename;
+                            LoaiPhieu_TXT = getFilename.LoaiPhieu;
+                            lb_IdImage.Text = getFilename.ImageName;
                             uc_PictureBox1.imageBox1.Image = null;
-                            if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename, getFilename, Settings.Default.ZoomImage) == "Error")
+                            if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename.ImageName, getFilename.ImageName, Settings.Default.ZoomImage) == "Error")
                             {
                                 uc_PictureBox1.imageBox1.Image = Resources.svn_deleted;
                                 return "Error";
@@ -470,9 +627,10 @@ namespace BaoCaoLuong2018.MyForm
                     }
                     else
                     {
-                        lb_IdImage.Text = getFilename;
+                        LoaiPhieu_TXT = getFilename.LoaiPhieu;
+                        lb_IdImage.Text = getFilename.ImageName;
                         uc_PictureBox1.imageBox1.Image = null;
-                        if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename, getFilename, Settings.Default.ZoomImage) == "Error")
+                        if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename.ImageName, getFilename.ImageName, Settings.Default.ZoomImage) == "Error")
                         {
                             uc_PictureBox1.imageBox1.Image = Resources.svn_deleted;
                             return "Error";
@@ -503,19 +661,24 @@ namespace BaoCaoLuong2018.MyForm
                 }
                 else if (LevelUser == 0) //User Level Not Good
                 {
-                    getFilename = (from w in Global.Db.GetImage_MissImage(Global.StrBatchID, Global.StrUserName, Global.StrCity, Global.StrRole) select w.Column1).FirstOrDefault();
-                    if (string.IsNullOrEmpty(getFilename))
+                    var temp = (from w in Global.Db.GetImage_MissImage_New(Global.StrBatchID, Global.StrUserName, Global.StrCity, Global.StrRole) select new { w.IDImage, w.LoaiPhieu }).ToList();
+                    getFilename.ImageName = temp[0]?.IDImage;
+                    getFilename.LoaiPhieu = temp[0]?.LoaiPhieu;
+                    if (string.IsNullOrEmpty(getFilename.ImageName))
                     {
                         try
                         {
-                            var getFilename = (from w in Global.Db.GetImage_Group_Notgood(Global.StrBatchID, lb_UserName.Text,Global.StrCity, Global.StrRole) select w.Column1).FirstOrDefault();
-                            if (string.IsNullOrEmpty(getFilename))
+                            var temp1 = (from w in Global.Db.GetImage_Group_Notgood_new(Global.StrBatchID, lb_UserName.Text,Global.StrCity, Global.StrRole) select new { w.IDImage, w.LoaiPhieu }).ToList();
+                            getFilename.ImageName = temp1[0]?.IDImage;
+                            getFilename.LoaiPhieu = temp1[0]?.LoaiPhieu;
+                            if (string.IsNullOrEmpty(getFilename.ImageName))
                             {
                                 return "NULL";
                             }
-                            lb_IdImage.Text = getFilename;
+                            LoaiPhieu_TXT = getFilename.LoaiPhieu;
+                            lb_IdImage.Text = getFilename.ImageName;
                             uc_PictureBox1.imageBox1.Image = null;
-                            if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename, getFilename, Settings.Default.ZoomImage) == "Error")
+                            if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename.ImageName, getFilename.ImageName, Settings.Default.ZoomImage) == "Error")
                             {
                                 uc_PictureBox1.imageBox1.Image = Resources.svn_deleted;
                                 return "Error";
@@ -536,9 +699,10 @@ namespace BaoCaoLuong2018.MyForm
                     }
                     else
                     {
-                        lb_IdImage.Text = getFilename;
+                        lb_IdImage.Text = getFilename.ImageName;
+                        LoaiPhieu_TXT = getFilename.LoaiPhieu;
                         uc_PictureBox1.imageBox1.Image = null;
-                        if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename, getFilename, Settings.Default.ZoomImage) == "Error")
+                        if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename.ImageName, getFilename.ImageName, Settings.Default.ZoomImage) == "Error")
                         {
                             uc_PictureBox1.imageBox1.Image = Resources.svn_deleted;
                             return "Error";
@@ -570,19 +734,24 @@ namespace BaoCaoLuong2018.MyForm
             }
             else if (ChiaUser == 0)  //Batch không chia user
             {
-                getFilename = (from w in Global.Db.GetImage_MissImage(Global.StrBatchID, Global.StrUserName, Global.StrCity, Global.StrRole) select w.Column1).FirstOrDefault();
-                if (string.IsNullOrEmpty(getFilename))
+                var temp = (from w in Global.Db.GetImage_MissImage_New(Global.StrBatchID, Global.StrUserName, Global.StrCity, Global.StrRole) select new { w.IDImage, w.LoaiPhieu }).ToList();
+                getFilename.ImageName = temp[0]?.IDImage;
+                getFilename.LoaiPhieu = temp[0]?.LoaiPhieu;
+                if (string.IsNullOrEmpty(getFilename.ImageName))
                 {
                     try
                     {
-                        var getFilename = (from w in Global.Db.LayHinhMoi(Global.StrBatchID, lb_UserName.Text,Global.StrCity, Global.StrRole) select w.Column1).FirstOrDefault();
-                        if (string.IsNullOrEmpty(getFilename))
+                        var temp1 = (from w in Global.Db.LayHinhMoi_new(Global.StrBatchID, lb_UserName.Text,Global.StrCity, Global.StrRole) select new { w.IDImage, w.LoaiPhieu }).ToList();
+                        getFilename.ImageName = temp1[0]?.IDImage;
+                        getFilename.LoaiPhieu = temp1[0]?.LoaiPhieu;
+                        if (string.IsNullOrEmpty(getFilename.ImageName))
                         {
                             return "NULL";
                         }
-                        lb_IdImage.Text = getFilename;
+                        lb_IdImage.Text = getFilename.ImageName;
+                        LoaiPhieu_TXT = getFilename.LoaiPhieu;
                         uc_PictureBox1.imageBox1.Image = null;
-                        if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename, getFilename, Settings.Default.ZoomImage) == "Error")
+                        if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename.ImageName, getFilename.ImageName, Settings.Default.ZoomImage) == "Error")
                         {
                             uc_PictureBox1.imageBox1.Image = Resources.svn_deleted;
                             return "Error";
@@ -603,9 +772,10 @@ namespace BaoCaoLuong2018.MyForm
                 }
                 else
                 {
-                    lb_IdImage.Text = getFilename;
+                    lb_IdImage.Text = getFilename.ImageName;
+                    LoaiPhieu_TXT = getFilename.LoaiPhieu;
                     uc_PictureBox1.imageBox1.Image = null;
-                    if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename, getFilename, Settings.Default.ZoomImage) == "Error")
+                    if (uc_PictureBox1.LoadImage(Global.Webservice + Global.StrBatchID + "/" + getFilename.ImageName, getFilename.ImageName, Settings.Default.ZoomImage) == "Error")
                     {
                         uc_PictureBox1.imageBox1.Image = Resources.svn_deleted;
                         return "Error";
@@ -636,17 +806,37 @@ namespace BaoCaoLuong2018.MyForm
             }
             if (Global.StrRole == "DESO")
             {
-                if(Global.StrCity=="CityO")
+                if (Global.StrCity == "CityO")
                 {
-                    if(pn_Main.SelectedTabPage==tab_CityO_Loai1)
+                    if (pn_Main.SelectedTabPage == tab_CityO_Loai1)
                         uC_CityO_Loai11.txt_Truong_018.Focus();
-                    if(pn_Main.SelectedTabPage==tab_CityO_Loai3)
+                    if (pn_Main.SelectedTabPage == tab_CityO_Loai3)
                         uC_CityO_Loai3_DeSo1.txt_Truong_015.Focus();
+                }
+                else if (Global.StrCity == "CityN")
+                {
+                    if (LoaiPhieu_TXT == "Loai1")
+                    {
+                        pn_Main.SelectedTabPage = tab_CityN_Loai1;
+                        uC_CityN_Loai11.txt_Truong_011.Focus();
+                    }
+                    else if (LoaiPhieu_TXT == "Loai3")
+                    {
+                        pn_Main.SelectedTabPage = tab_CityN_Loai3;
+                        uC_CityN_Loai31.txt_Truong_011.Focus();
+                    }
                 }
             }
             else if (Global.StrRole == "DEJP")
             {
-                uC_CityO_JP1.txt_Truong_016.Focus();
+                if (Global.StrCity == "CityO")
+                {
+                    uC_CityO_JP1.txt_Truong_016.Focus();
+                }
+                else if (Global.StrCity == "CityN")
+                {
+                    uC_CityN_JP1.txt_Truong_018.Focus();
+                }
             }
             return "ok";
         }
@@ -677,8 +867,13 @@ namespace BaoCaoLuong2018.MyForm
                     MessageBox.Show("Vui lòng đăng nhập lại và chọn Batch!");
                     return;
                 }
+                uC_CityO_JP1.ResetData();
+                uC_CityO_Loai11.ResetData();
+                uC_CityO_Loai3_DeSo1.ResetData();
+                uC_CityN_JP1.ResetData();
+                uC_CityN_Loai11.ResetData();
+                uC_CityN_Loai31.ResetData();
                 Image_temp = GetImage();
-
                 if (Image_temp == "NULL")
                 {
                     MessageBox.Show(@"Hoàn thành batch '" + lb_fBatchName.Text + "'");
@@ -701,14 +896,18 @@ namespace BaoCaoLuong2018.MyForm
                                 Global.StrBatch = listResult[0].BatchName;
                                 //Folder = (from w in Global.Db.GetFolder(listResult[0].BatchID) select w.fPathPicture).FirstOrDefault();
 
-                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchName,Global.StrCity) select w.ChiaUser).FirstOrDefault();
+                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchID,Global.StrCity) select w.ChiaUser).FirstOrDefault();
                                 if (ktBatch == true)
                                 {
                                     ChiaUser = 1;
                                 }
-                                else
+                                else if (ktBatch == false)
                                 {
                                     ChiaUser = 0;
+                                }
+                                else
+                                {
+                                    ChiaUser = -1;
                                 }
                                 lb_fBatchName.Text = Global.StrBatch;
                                 lb_IdImage.Text = "";
@@ -742,14 +941,18 @@ namespace BaoCaoLuong2018.MyForm
                                 Global.StrBatch = listResult[0].BatchName;
                                 Global.StrBatchID = listResult[0].BatchID;
                                 //Folder = (from w in Global.Db.GetFolder(listResult[0].fbatchname) select w.fPathPicture).FirstOrDefault();
-                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchName,Global.StrCity) select w.ChiaUser).FirstOrDefault();
+                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchID,Global.StrCity) select w.ChiaUser).FirstOrDefault();
                                 if (ktBatch == true)
                                 {
                                     ChiaUser = 1;
                                 }
-                                else
+                                else if (ktBatch == false)
                                 {
                                     ChiaUser = 0;
+                                }
+                                else
+                                {
+                                    ChiaUser = -1;
                                 }
                                 lb_fBatchName.Text = Global.StrBatch;
                                 lb_TongPhieu.Text = (from w in Global.Db.tbl_Images where w.BatchID == Global.StrBatchID select w.IDImage).Count().ToString();
@@ -804,42 +1007,82 @@ namespace BaoCaoLuong2018.MyForm
                                                     "", "", "", "", "", "", "", "", "", "",
                                                     "", "", "", "", "", "", "", "", "", "",
                                                     "", "", "", "", "", "", "", "", "", "",
-                                                    "", "","","","");
+                                                    "", "","","","","");
                     }
-                    else if(pn_Main.SelectedTabPage==tab_CityO_Loai3)
+                    else if (pn_Main.SelectedTabPage == tab_CityO_Loai3)
                     {
                         if (uC_CityO_Loai3_DeSo1.IsEmpty())
                         {
                             if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                                 return;
                         }
-                        if(!uC_CityO_Loai3_DeSo1.CheckSubmit())
+                        if (!uC_CityO_Loai3_DeSo1.CheckSubmit())
                         {
                             MessageBox.Show("Điều kiện nhập sai tại trường 33 và 34. Bạn hãy kiểm tra lại", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                         uC_CityO_Loai3_DeSo1.Save_CityO_Loai3(Global.StrBatchID, lb_IdImage.Text);
                     }
-
+                    else if (pn_Main.SelectedTabPage == tab_CityN_Loai1)
+                    {
+                        if (uC_CityN_Loai11.IsEmpty())
+                        {
+                            if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                                return;
+                        }
+                        uC_CityN_Loai11.Save_CityN_Loai1(Global.StrBatchID, lb_IdImage.Text);
+                    }
+                    else if (pn_Main.SelectedTabPage == tab_CityN_Loai3)
+                    {
+                        if (uC_CityN_Loai31.IsEmpty())
+                        {
+                            if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                                return;
+                        }
+                        if (!uC_CityN_Loai31.CheckSubmit())
+                        {
+                            MessageBox.Show("Điều kiện nhập sai tại trường 50 và 52. Bạn hãy kiểm tra lại", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        uC_CityN_Loai31.Save_CityN_Loai3(Global.StrBatchID, lb_IdImage.Text);
+                    }
                     uC_CityO_Loai11.ResetData();
                     uC_CityO_Loai3_DeSo1.ResetData();
+                    uC_CityN_Loai11.ResetData();
+                    uC_CityN_Loai31.ResetData();
                 }
                 else if (Global.StrRole == "DEJP")
                 {
-
-                    if (uC_CityO_JP1.IsEmpty())
+                    if (pn_Main.SelectedTabPage == tab_CityO_JP)
                     {
-                        if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                        if (uC_CityO_JP1.IsEmpty())
+                        {
+                            if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.No)
+                                return;
+                        }
+                        if (uC_CityO_JP1.bSubmit)
+                        {
+                            MessageBox.Show("Có ký tự không hợp lệ. Vui lòng kiểm tra lại!");
                             return;
+                        }
+                        uC_CityO_JP1.Save_CityO_JP(Global.StrBatchID, lb_IdImage.Text);
                     }
-                    if (uC_CityO_JP1.bSubmit)
+                    else if (pn_Main.SelectedTabPage == tab_CityN_LoaiJP)
                     {
-                        MessageBox.Show("Có ký tự không hợp lệ tại trường 16. Vui lòng kiểm tra lại!");
-                        return;
+                        if (uC_CityN_JP1.IsEmpty())
+                        {
+                            if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == System.Windows.Forms.DialogResult.No)
+                                return;
+                        }
+                        if (uC_CityN_JP1.bSubmit)
+                        {
+                            MessageBox.Show("Có ký tự không hợp lệ. Vui lòng kiểm tra lại!");
+                            return;
+                        }
+                        uC_CityN_JP1.Save_CityN_JP(Global.StrBatchID, lb_IdImage.Text);
                     }
-
-                    uC_CityO_JP1.Save_CityO_JP(Global.StrBatchID, lb_IdImage.Text);
                     uC_CityO_JP1.ResetData();
+                    uC_CityN_JP1.ResetData();
                 }
                 setValue();
                 Image_temp = GetImage();
@@ -847,6 +1090,7 @@ namespace BaoCaoLuong2018.MyForm
                 {
                     MessageBox.Show(@"Hoàn thành batch '" + lb_fBatchName.Text + "'");
                     Global.StrBatch = "";
+                    Global.StrBatchID = "";
                     Folder = "";
                     if (LevelUser == 0)
                     {
@@ -863,14 +1107,18 @@ namespace BaoCaoLuong2018.MyForm
                                 Global.StrBatch = listResult[0].BatchName;
                                 Global.StrBatchID = listResult[0].BatchID;
                                 //Folder = (from w in Global.Db.GetFolder(listResult[0].BatchID) select w.fPathPicture).FirstOrDefault();
-                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchName,Global.StrCity) select w.ChiaUser).FirstOrDefault();
+                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchID,Global.StrCity) select w.ChiaUser).FirstOrDefault();
                                 if (ktBatch == true)
                                 {
                                     ChiaUser = 1;
                                 }
-                                else
+                                else if (ktBatch == false)
                                 {
                                     ChiaUser = 0;
+                                }
+                                else
+                                {
+                                    ChiaUser = -1;
                                 }
                                 lb_fBatchName.Text = Global.StrBatch;
                                 lb_IdImage.Text = "";
@@ -904,14 +1152,18 @@ namespace BaoCaoLuong2018.MyForm
                                 Global.StrBatch = listResult[0].BatchName;
                                 Global.StrBatchID = listResult[0].BatchID;
                                 //Folder = (from w in Global.Db.GetFolder(listResult[0].BatchID) select w.fPathPicture).FirstOrDefault();
-                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchName,Global.StrCity) select w.ChiaUser).FirstOrDefault();
+                                var ktBatch = (from w in Global.Db.CheckBatchChiaUser(listResult[0].BatchID,Global.StrCity) select w.ChiaUser).FirstOrDefault();
                                 if (ktBatch == true)
                                 {
                                     ChiaUser = 1;
                                 }
-                                else
+                                else if (ktBatch == false)
                                 {
                                     ChiaUser = 0;
+                                }
+                                else
+                                {
+                                    ChiaUser = -1;
                                 }
                                 lb_fBatchName.Text = Global.StrBatch;
                                 lb_TongPhieu.Text = (from w in Global.Db.tbl_Images where w.BatchID == Global.StrBatchID select w.IDImage).Count().ToString();
@@ -981,7 +1233,7 @@ namespace BaoCaoLuong2018.MyForm
                                                 "", "", "", "", "", "", "", "", "", "",
                                                 "", "", "", "", "", "", "", "", "", "",
                                                 "", "", "", "", "", "", "", "", "", "",
-                                                "", "", "", "", "");
+                                                "", "", "", "", "", "");
                 }
                 else if (pn_Main.SelectedTabPage == tab_CityO_Loai3)
                 {
@@ -997,25 +1249,66 @@ namespace BaoCaoLuong2018.MyForm
                     }
                     uC_CityO_Loai3_DeSo1.Save_CityO_Loai3(Global.StrBatchID, lb_IdImage.Text);
                 }
+                else if (pn_Main.SelectedTabPage == tab_CityN_Loai1)
+                {
+                    if (uC_CityN_Loai11.IsEmpty())
+                    {
+                        if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                            return;
+                    }
+                    uC_CityN_Loai11.Save_CityN_Loai1(Global.StrBatchID, lb_IdImage.Text);
+                }
+                else if (pn_Main.SelectedTabPage == tab_CityN_Loai3)
+                {
+                    if (uC_CityN_Loai31.IsEmpty())
+                    {
+                        if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                            return;
+                    }
+                    if (!uC_CityN_Loai31.CheckSubmit())
+                    {
+                        MessageBox.Show("Điều kiện nhập sai tại trường 50 và 52. Bạn hãy kiểm tra lại", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    uC_CityN_Loai31.Save_CityN_Loai3(Global.StrBatchID, lb_IdImage.Text);
+                }
                 uC_CityO_Loai11.ResetData();
                 uC_CityO_Loai3_DeSo1.ResetData();
+                uC_CityN_Loai11.ResetData();
+                uC_CityN_Loai31.ResetData();
             }
             else if (Global.StrRole == "DEJP")
             {
-
-                if (uC_CityO_JP1.IsEmpty())
+                if (pn_Main.SelectedTabPage == tab_CityO_JP)
                 {
-                    if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                    if (uC_CityO_JP1.IsEmpty())
+                    {
+                        if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                            return;
+                    }
+                    if (uC_CityO_JP1.bSubmit)
+                    {
+                        MessageBox.Show("Có ký tự không hợp lệ. Vui lòng kiểm tra lại!");
                         return;
+                    }
+                    uC_CityO_JP1.Save_CityO_JP(Global.StrBatchID, lb_IdImage.Text);
                 }
-                if (uC_CityO_JP1.bSubmit)
+                else if (pn_Main.SelectedTabPage == tab_CityN_LoaiJP)
                 {
-                    MessageBox.Show("Có ký tự không hợp lệ tại trường 16. Vui lòng kiểm tra lại!");
-                    return;
+                    if (uC_CityN_JP1.IsEmpty())
+                    {
+                        if (MessageBox.Show("Bạn đang để trống 1 hoặc nhiều trường. Bạn có muốn submit không? \r\nYes = Submit và chuyển qua hình khác<Nhấn Enter>\r\nNo = nhập lại trường trống cho hình này.<nhấn phím N>", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
+                            return;
+                    }
+                    if (uC_CityN_JP1.bSubmit)
+                    {
+                        MessageBox.Show("Có ký tự không hợp lệ. Vui lòng kiểm tra lại!");
+                        return;
+                    }
+                    uC_CityN_JP1.Save_CityN_JP(Global.StrBatchID, lb_IdImage.Text);
                 }
-
-                uC_CityO_JP1.Save_CityO_JP(Global.StrBatchID, lb_IdImage.Text);
                 uC_CityO_JP1.ResetData();
+                uC_CityN_JP1.ResetData();
             }
             DialogResult = DialogResult.Yes;
         }
@@ -1116,6 +1409,21 @@ namespace BaoCaoLuong2018.MyForm
             {
                 uC_CityO_Loai3_DeSo1.txt_Truong_015.Focus();
                 splitMain.SplitterPosition = 677;
+            }
+            else if (pn_Main.SelectedTabPage == tab_CityN_Loai1)
+            {
+                uC_CityN_Loai11.txt_Truong_011.Focus();
+                splitMain.SplitterPosition = 305;
+            }
+            else if (pn_Main.SelectedTabPage == tab_CityN_Loai3)
+            {
+                uC_CityN_Loai31.txt_Truong_011.Focus();
+                splitMain.SplitterPosition = 675;
+            }
+            else if (pn_Main.SelectedTabPage == tab_CityN_LoaiJP)
+            {
+                uC_CityN_JP1.txt_Truong_018.Focus();
+                splitMain.SplitterPosition = 310;
             }
         }
         

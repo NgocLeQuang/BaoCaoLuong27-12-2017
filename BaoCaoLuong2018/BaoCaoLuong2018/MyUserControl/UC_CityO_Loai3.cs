@@ -22,6 +22,7 @@ namespace BaoCaoLuong2018.MyUserControl
         }
 
         private List<Category> category = new List<Category>();
+
         public class Category
         {
             public string Value_JP { get; set; }
@@ -35,8 +36,9 @@ namespace BaoCaoLuong2018.MyUserControl
             category.Add(new Category() { Value_JP = "認", Value_SO = "02" });
             category.Add(new Category() { Value_JP = "増", Value_SO = "03" });
             category.Add(new Category() { Value_JP = "震", Value_SO = "04" });
+            category.Add(new Category() { Value_JP = "震(特)", Value_SO = "041" });
             category.Add(new Category() { Value_JP = "特", Value_SO = "11" });
-            category.Add(new Category() { Value_JP = "住（特）", Value_SO = "11" });
+            category.Add(new Category() { Value_JP = "住（特）", Value_SO = "111" });
             category.Add(new Category() { Value_JP = "認（特）", Value_SO = "12" });
             category.Add(new Category() { Value_JP = "増（特）", Value_SO = "13" });
             category.Add(new Category() { Value_JP = "?", Value_SO = "?" });
@@ -54,6 +56,7 @@ namespace BaoCaoLuong2018.MyUserControl
             sb.Insert(0, m.Groups["a"].Value);
             return sb.ToString().Trim(',');
         }
+
         public void UC_CityO_Loai3_DeSo_Load(object sender, EventArgs e)
         {
             SetDataLookUpEdit();
@@ -108,6 +111,7 @@ namespace BaoCaoLuong2018.MyUserControl
             txt_Truong_058.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "58" select w.Note).FirstOrDefault();
             txt_Truong_059.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "59" select w.Note).FirstOrDefault();
             txt_Truong_060.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "60" select w.Note).FirstOrDefault();
+            txt_Truong_061_1.Tag = txt_Truong_061_2.Tag = txt_Truong_061_3.Tag = txt_Truong_061_4.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "61" select w.Note).FirstOrDefault();
             txt_Truong_062.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "62" select w.Note).FirstOrDefault();
             txt_Truong_063.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "63" select w.Note).FirstOrDefault();
             txt_Truong_064.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai3" & w.Truong == "64" select w.Note).FirstOrDefault();
@@ -182,7 +186,10 @@ namespace BaoCaoLuong2018.MyUserControl
             txt_Truong_056.GotFocus += Txt_Truong_015_GotFocus;
             txt_Truong_058.GotFocus += Txt_Truong_015_GotFocus;
             txt_Truong_059.GotFocus += Txt_Truong_015_GotFocus;
-            txt_Truong_060.GotFocus += Txt_Truong_015_GotFocus;
+            txt_Truong_061_1.GotFocus += Txt_Truong_015_GotFocus;
+            txt_Truong_061_2.GotFocus += Txt_Truong_015_GotFocus;
+            txt_Truong_061_3.GotFocus += Txt_Truong_015_GotFocus;
+            txt_Truong_061_4.GotFocus += Txt_Truong_015_GotFocus;
             txt_Truong_062.GotFocus += Txt_Truong_015_GotFocus;
             txt_Truong_063.GotFocus += Txt_Truong_015_GotFocus;
             txt_Truong_064.GotFocus += Txt_Truong_015_GotFocus;
@@ -232,6 +239,11 @@ namespace BaoCaoLuong2018.MyUserControl
         }
         public void ResetData()
         {
+            textEdit1.Text = "";
+            textEdit2.Text = "";
+            textEdit3.Text = "";
+            textEdit4.Text = "";
+            textEdit5.Text = "";
             txt_Truong_015.Text = "";
             txt_Truong_017.Text = "";
             txt_Truong_018.Text = "";
@@ -305,6 +317,7 @@ namespace BaoCaoLuong2018.MyUserControl
             txt_Truong_109.Text = "";
             txt_Truong_110.Text = "";
             txt_Truong_111.Text = "";
+            txt_Flag.Text = "";
             chk_QC.Checked = false;
 
             txt_Truong_015.ForeColor = Color.Black;
@@ -380,6 +393,7 @@ namespace BaoCaoLuong2018.MyUserControl
             txt_Truong_109.ForeColor = Color.Black;
             txt_Truong_110.ForeColor = Color.Black;
             txt_Truong_111.ForeColor = Color.Black;
+            txt_Flag.ForeColor = Color.Black;
 
             txt_Truong_015.BackColor = Color.White;
             txt_Truong_017.BackColor = Color.White;
@@ -454,6 +468,11 @@ namespace BaoCaoLuong2018.MyUserControl
             txt_Truong_109.BackColor = Color.White;
             txt_Truong_110.BackColor = Color.White;
             txt_Truong_111.BackColor = Color.White;
+            txt_Flag.BackColor = Color.White;
+            txt_Truong_061_1.Enabled = true;
+            txt_Truong_061_2.Enabled = true;
+            txt_Truong_061_3.Enabled = true;
+            txt_Truong_061_4.Enabled = true;
             //txt_Truong_015.Focus();
         }
         public bool IsEmpty()
@@ -630,7 +649,7 @@ namespace BaoCaoLuong2018.MyUserControl
                     txt_Truong_034.Text.IndexOf("?") < 0 &
                     txt_Truong_034.Text.IndexOf("●") < 0)
             {
-                if (Double.Parse(txt_Truong_033.Text) >= Double.Parse(txt_Truong_034.Text))
+                if (Double.Parse(txt_Truong_033.Text.Replace(",", "")) > Double.Parse(txt_Truong_034.Text.Replace(",","")))
                     return false;
                 else
                     return true;
@@ -743,7 +762,8 @@ namespace BaoCaoLuong2018.MyUserControl
                                         txt_Truong_109.Text.IndexOf('●') >= 0 ? "●" : txt_Truong_109.Text.IndexOf('?') >= 0 ? "?" : txt_Truong_109.Text,
                                         txt_Truong_110.Text.IndexOf('●') >= 0 ? "●" : txt_Truong_110.Text.IndexOf('?') >= 0 ? "?" : txt_Truong_110.Text,
                                         txt_Truong_111.Text.IndexOf('●') >= 0 ? "●" : txt_Truong_111.Text.IndexOf('?') >= 0 ? "?" : txt_Truong_111.Text,
-                                        "");
+                                        "",
+                                        txt_Flag.Text);
         }
         public void Edit_Save_CityO_Loai3(string Batch, string image)
         {
@@ -851,6 +871,7 @@ namespace BaoCaoLuong2018.MyUserControl
                                         txt_Truong_110.Text.IndexOf('●') >= 0 ? "●" : txt_Truong_110.Text.IndexOf('?') >= 0 ? "?" : txt_Truong_110.Text,
                                         txt_Truong_111.Text.IndexOf('●') >= 0 ? "●" : txt_Truong_111.Text.IndexOf('?') >= 0 ? "?" : txt_Truong_111.Text,
                                         "",
+                                        txt_Flag.Text,
                                         CheckQC());
         }
         private void DoiMau(int soByteBe, int soBytelon, TextEdit textBox)
@@ -973,6 +994,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong90 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -981,6 +1003,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong73 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -989,6 +1012,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong17 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -997,6 +1021,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong18 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1005,6 +1030,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong19 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1013,6 +1039,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong20 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1021,6 +1048,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong21 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1029,6 +1057,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong23 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1037,6 +1066,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong24 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1045,6 +1075,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong25 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1053,6 +1084,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong26 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1061,6 +1093,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong27 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1069,6 +1102,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong28 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1077,6 +1111,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong41 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1085,6 +1120,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong30 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1093,6 +1129,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong31 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1101,6 +1138,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong32 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1109,6 +1147,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong33 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1117,6 +1156,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong34 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1125,6 +1165,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong35 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1133,6 +1174,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong36 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1141,6 +1183,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong37 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1149,6 +1192,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong67 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1157,6 +1201,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong86 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1165,6 +1210,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong87 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1173,6 +1219,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong88 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1181,6 +1228,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong89 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1189,6 +1237,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong39 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1197,6 +1246,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong77 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1205,6 +1255,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong78 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1213,6 +1264,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong74 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1221,6 +1273,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong75 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1229,6 +1282,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong76 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1237,6 +1291,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong81 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1245,6 +1300,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong82 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1253,6 +1309,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong83 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1261,6 +1318,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong79 = ((LookUpEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1269,6 +1327,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong84 = ((LookUpEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1277,6 +1336,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong38 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1285,6 +1345,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong40 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1293,6 +1354,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong95 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1301,6 +1363,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong97 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1309,6 +1372,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong99 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1317,6 +1381,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong101 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1325,6 +1390,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong103 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1333,6 +1399,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong105 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1341,6 +1408,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong107 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1349,6 +1417,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong109 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1357,6 +1426,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong110 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1365,6 +1435,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong111 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1372,6 +1443,7 @@ namespace BaoCaoLuong2018.MyUserControl
         {
             if (Global.FlagChangeSave == false)
                 return;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Truong69 = ((TextEdit)sender).Text;
             Settings.Default.Save();
         }
@@ -1381,6 +1453,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong52 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1389,6 +1462,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong72 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1397,6 +1471,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong44 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1405,6 +1480,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong45 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1413,6 +1489,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong46 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1421,6 +1498,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong48 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1429,6 +1507,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong49 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1437,6 +1516,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong50 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1445,6 +1525,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong51 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1453,6 +1534,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong55 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1461,6 +1543,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong56 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1469,6 +1552,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong58 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1477,6 +1561,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong59 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1485,6 +1570,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong60 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1493,6 +1579,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong61_1 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1501,6 +1588,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong61_2 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1509,6 +1597,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong61_3 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1517,6 +1606,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong61_4 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1524,6 +1614,7 @@ namespace BaoCaoLuong2018.MyUserControl
         {
             if (Global.FlagChangeSave == false)
                 return;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Truong62 = ((TextEdit)sender).Text;
             Settings.Default.Save();
         }
@@ -1533,6 +1624,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong63 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1541,6 +1633,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong64 = ((TextEdit)sender).Text;
+            Settings.Default.LoaiPhieu = "Loai3";
             Settings.Default.Save();
         }
 
@@ -1576,6 +1669,330 @@ namespace BaoCaoLuong2018.MyUserControl
             {
                 ((TextEdit)sender).Text = ((TextEdit)sender).Text + "000";
                 ((TextEdit)sender).SelectionStart = ((TextEdit)sender).Text.Length;
+            }
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_017" || ((TextEdit)sender).Name == "txt_Truong_018" || ((TextEdit)sender).Name == "txt_Truong_019" || ((TextEdit)sender).Name == "txt_Truong_020"))
+            {
+                txt_Truong_021.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_017" || ((TextEdit)sender).Name == "txt_Truong_018" || ((TextEdit)sender).Name == "txt_Truong_019" || ((TextEdit)sender).Name == "txt_Truong_020"))
+            {
+                txt_Truong_073.Focus();
+            }
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_024"))
+            {
+                txt_Truong_033.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_024"))
+            {
+                txt_Truong_017.Focus();
+            }
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_033" ))
+            {
+                txt_Truong_034.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_033"))
+            {
+                txt_Truong_021.Focus();
+            }
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_034"|| ((TextEdit)sender).Name == "txt_Truong_035"|| ((TextEdit)sender).Name == "txt_Truong_036"|| ((TextEdit)sender).Name == "txt_Truong_037"))
+            {
+                txt_Truong_067.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_034" || ((TextEdit)sender).Name == "txt_Truong_035" || ((TextEdit)sender).Name == "txt_Truong_036" || ((TextEdit)sender).Name == "txt_Truong_037"))
+            {
+                txt_Truong_033.Focus();
+            }
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_067"))
+            {
+                txt_Truong_086.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_067"))
+            {
+                txt_Truong_034.Focus();
+            }
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_086" ||
+                ((TextEdit)sender).Name == "txt_Truong_087" || ((TextEdit)sender).Name == "txt_Truong_088" ||
+                ((TextEdit)sender).Name == "txt_Truong_089"|| ((TextEdit)sender).Name == "txt_Truong_039"))
+            {
+                txt_Truong_077.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_086" ||
+                ((TextEdit)sender).Name == "txt_Truong_087" || ((TextEdit)sender).Name == "txt_Truong_088" ||
+                ((TextEdit)sender).Name == "txt_Truong_089" || ((TextEdit)sender).Name == "txt_Truong_039"))
+            {
+                txt_Truong_067.Focus();
+            }
+            if (e.KeyCode == Keys.Down && ((TextEdit)sender).Name == "txt_Truong_078")
+            {
+                txt_Truong_038.Focus();
+            }
+            if (e.KeyCode == Keys.Up && ((TextEdit)sender).Name == "txt_Truong_078")
+            {
+                txt_Truong_077.Focus();
+            }
+            if (e.KeyCode == Keys.Down && (((TextEdit)sender).Name == "txt_Truong_038" || ((TextEdit)sender).Name == "txt_Truong_040"))
+            {
+                txt_Truong_095.Focus();
+            }
+            if (e.KeyCode == Keys.Up && (((TextEdit)sender).Name == "txt_Truong_038" || ((TextEdit)sender).Name == "txt_Truong_040"))
+            {
+                txt_Truong_078.Focus();
+            }
+        }
+
+        private void txt_Truong_061_1_EditValueChanged(object sender, EventArgs e)
+        {
+            Changed?.Invoke(sender, e);
+            DoiMau(0, 1, (TextEdit)sender);
+            if (!string.IsNullOrEmpty(txt_Truong_061_1.Text))
+            {
+                txt_Truong_061_2.Enabled = false;
+                txt_Truong_061_3.Enabled = false;
+                txt_Truong_061_4.Enabled = false;
+            }
+            else
+            {
+                txt_Truong_061_2.Enabled = true;
+                txt_Truong_061_3.Enabled = true;
+                txt_Truong_061_4.Enabled = true;
+            }
+        }
+
+        private void txt_Truong_061_2_EditValueChanged(object sender, EventArgs e)
+        {
+            Changed?.Invoke(sender, e);
+            DoiMau(0, 1, (TextEdit)sender);
+            if(!string.IsNullOrEmpty(txt_Truong_061_2.Text))
+            {
+                txt_Truong_061_1.Enabled = false;
+                txt_Truong_061_3.Enabled = false;
+                txt_Truong_061_4.Enabled = false;
+            }
+            else
+            {
+                txt_Truong_061_1.Enabled = true;
+                txt_Truong_061_3.Enabled = true;
+                txt_Truong_061_4.Enabled = true;
+            }
+        }
+
+        private void txt_Truong_061_3_EditValueChanged(object sender, EventArgs e)
+        {
+            Changed?.Invoke(sender, e);
+            DoiMau(0, 1, (TextEdit)sender);
+            if (!string.IsNullOrEmpty(txt_Truong_061_3.Text))
+            {
+                txt_Truong_061_1.Enabled = false;
+                txt_Truong_061_2.Enabled = false;
+                txt_Truong_061_4.Enabled = false;
+            }
+            else
+            {
+                txt_Truong_061_1.Enabled = true;
+                txt_Truong_061_2.Enabled = true;
+                txt_Truong_061_4.Enabled = true;
+            }
+        }
+
+        private void txt_Truong_061_4_EditValueChanged(object sender, EventArgs e)
+        {
+            Changed?.Invoke(sender, e);
+            DoiMau(0, 1, (TextEdit)sender);
+            if (!string.IsNullOrEmpty(txt_Truong_061_4.Text))
+            {
+                txt_Truong_061_1.Enabled = false;
+                txt_Truong_061_2.Enabled = false;
+                txt_Truong_061_3.Enabled = false;
+            }
+            else
+            {
+                txt_Truong_061_1.Enabled = true;
+                txt_Truong_061_2.Enabled = true;
+                txt_Truong_061_3.Enabled = true;
+            }
+        }
+
+        private void txt_Truong_079_EditValueChanged(object sender, EventArgs e)
+        {
+            Changed?.Invoke(sender, e);
+        }
+        private void txt_Truong_015_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                SendKeys.Send("{Tab}");
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                SendKeys.Send("{Tab}");
+            }
+        }
+
+        private void txt_Truong_090_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                SendKeys.Send("{Tab}");
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                SendKeys.Send("+{Tab}");
+            }
+        }
+
+        private void txt_Truong_073_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                SendKeys.Send("{Tab}");
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                SendKeys.Send("+{Tab}");
+            }
+        }
+
+        private void txt_Truong_021_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_033.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_017.Focus();
+            }
+        }
+
+        private void txt_Truong_077_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_078.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_086.Focus();
+            }
+        }
+
+        private void txt_Truong_095_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_097.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_038.Focus();
+            }
+        }
+
+        private void txt_Truong_097_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_099.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_095.Focus();
+            }
+        }
+
+        private void txt_Truong_099_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_101.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_097.Focus();
+            }
+        }
+
+        private void txt_Truong_101_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                textEdit4.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_099.Focus();
+            }
+        }
+
+        private void textEdit4_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_055.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_101.Focus();
+            }
+        }
+
+        private void txt_Truong_055_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_061_1.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                textEdit4.Focus();
+            }
+        }
+
+        private void txt_Truong_061_1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                chk_QC.Focus();
+            }
+            if (e.KeyCode == Keys.Up)
+            {
+                txt_Truong_055.Focus();
+            }
+        }
+
+        private void txt_Truong_081_KeyDown(object sender, KeyEventArgs e)
+        {
+            Tab_Left_Right(sender, e);
+            if (e.KeyCode == Keys.Down)
+            {
+                txt_Truong_038.Focus();
+            }
+            if (e.KeyCode == Keys.Up )
+            {
+                txt_Truong_077.Focus();
+            }
+        }
+        private void Tab_Left_Right(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left)
+            {
+                SendKeys.Send("+{Tab}");
+            }
+            else if (e.KeyCode == Keys.Right)
+            {
+                SendKeys.Send("{Tab}");
             }
         }
     }

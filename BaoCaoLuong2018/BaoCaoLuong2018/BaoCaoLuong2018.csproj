@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BaoCaoLuong2018</RootNamespace>
-    <AssemblyName>BaoCaoLuong2018_V1.0.0</AssemblyName>
+    <AssemblyName>BaoCaoLuong2018_V1.2.8</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -136,6 +136,126 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaoCaoLuonng2017\DataBaoCaoLuong.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataBaoCaoLuong.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\DataEntryBPO.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataEntryBPO.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\Global.cs" />
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ChangeZoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ChangeZoom.designer.cs">
+      <DependentUpon>frm_ChangeZoom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_Check.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_Check.designer.cs">
+      <DependentUpon>frm_Check.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ChiTietTienDo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ChiTietTienDo.designer.cs">
+      <DependentUpon>frm_ChiTietTienDo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_CreateBatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_CreateBatch.designer.cs">
+      <DependentUpon>frm_CreateBatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ExportExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ExportExcel.designer.cs">
+      <DependentUpon>frm_ExportExcel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_FreeTime.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_FreeTime.designer.cs">
+      <DependentUpon>frm_FreeTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_Main.designer.cs">
+      <DependentUpon>frm_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ManagerBatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_ManagerBatch.designer.cs">
+      <DependentUpon>frm_ManagerBatch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_NangSuat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_NangSuat.designer.cs">
+      <DependentUpon>frm_NangSuat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_TienDo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_TienDo.designer.cs">
+      <DependentUpon>frm_TienDo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyForm\frm_User.designer.cs">
+      <DependentUpon>frm_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyLog\LogFile.cs" />
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_DEJP.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_DEJP.designer.cs">
+      <DependentUpon>uc_DEJP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_1.designer.cs">
+      <DependentUpon>uc_Loai_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_2.designer.cs">
+      <DependentUpon>uc_Loai_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_3.designer.cs">
+      <DependentUpon>uc_Loai_3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_4.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_4.designer.cs">
+      <DependentUpon>uc_Loai_4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_42.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_42.designer.cs">
+      <DependentUpon>uc_Loai_42.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_PictureBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BaoCaoLuonng2017\MyUserControl\uc_PictureBox.designer.cs">
+      <DependentUpon>uc_PictureBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyData\DataBaoCaoLuong.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,6 +365,24 @@
     <Compile Include="MyForm\ShowImage.designer.cs">
       <DependentUpon>ShowImage.cs</DependentUpon>
     </Compile>
+    <Compile Include="MyUserControl\UC_CityN_JP.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\UC_CityN_JP.Designer.cs">
+      <DependentUpon>UC_CityN_JP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyUserControl\UC_CityN_Loai1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\UC_CityN_Loai1.Designer.cs">
+      <DependentUpon>UC_CityN_Loai1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MyUserControl\UC_CityN_Loai3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MyUserControl\UC_CityN_Loai3.Designer.cs">
+      <DependentUpon>UC_CityN_Loai3.cs</DependentUpon>
+    </Compile>
     <Compile Include="MyUserControl\UC_CityO_JP.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -277,6 +415,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="BaoCaoLuonng2017\DataBaoCaoLuong.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataBaoCaoLuong.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BaoCaoLuonng2017\DataEntryBPO.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataEntryBPO.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BaoCaoLuonng2017\Resources\S_City_ExportExcel.xls" />
+    <None Include="BaoCaoLuonng2017\Resources\S_City_Productivity.xls" />
+    <None Include="BaoCaoLuonng2017\Resources\S_City_Productivity_DEJP.xls" />
+    <None Include="BaoCaoLuonng2017\Resources\S_City_Productivity_Loai1.xls" />
+    <None Include="BaoCaoLuonng2017\Resources\S_City_Productivity_Loai2.xls" />
+    <None Include="BaoCaoLuonng2017\Resources\S_City_Productivity_Loai3.xls" />
+    <None Include="BaoCaoLuonng2017\Resources\S_City_Productivity_Loai4.xls" />
     <None Include="MyData\DataBaoCaoLuong.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataBaoCaoLuong.designer.cs</LastGenOutput>
@@ -288,6 +443,66 @@
     <None Include="MyData\DataBaoCaoLuong.dbml.layout">
       <DependentUpon>DataBaoCaoLuong.dbml</DependentUpon>
     </None>
+    <None Include="BaoCaoLuonng2017\DataBaoCaoLuong.dbml.layout">
+      <DependentUpon>DataBaoCaoLuong.dbml</DependentUpon>
+    </None>
+    <None Include="BaoCaoLuonng2017\DataEntryBPO.dbml.layout">
+      <DependentUpon>DataEntryBPO.dbml</DependentUpon>
+    </None>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_ChangeZoom.resx">
+      <DependentUpon>frm_ChangeZoom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_Check.resx">
+      <DependentUpon>frm_Check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_ChiTietTienDo.resx">
+      <DependentUpon>frm_ChiTietTienDo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_CreateBatch.resx">
+      <DependentUpon>frm_CreateBatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_ExportExcel.resx">
+      <DependentUpon>frm_ExportExcel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_FreeTime.resx">
+      <DependentUpon>frm_FreeTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_Main.resx">
+      <DependentUpon>frm_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_ManagerBatch.resx">
+      <DependentUpon>frm_ManagerBatch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_NangSuat.resx">
+      <DependentUpon>frm_NangSuat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_TienDo.resx">
+      <DependentUpon>frm_TienDo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyForm\frm_User.resx">
+      <DependentUpon>frm_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_DEJP.resx">
+      <DependentUpon>uc_DEJP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_1.resx">
+      <DependentUpon>uc_Loai_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_2.resx">
+      <DependentUpon>uc_Loai_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_3.resx">
+      <DependentUpon>uc_Loai_3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_4.resx">
+      <DependentUpon>uc_Loai_4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_Loai_42.resx">
+      <DependentUpon>uc_Loai_42.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaoCaoLuonng2017\MyUserControl\uc_PictureBox.resx">
+      <DependentUpon>uc_PictureBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyForm\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -336,6 +551,15 @@
     <EmbeddedResource Include="MyForm\ShowImage.resx">
       <DependentUpon>ShowImage.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\UC_CityN_JP.resx">
+      <DependentUpon>UC_CityN_JP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\UC_CityN_Loai1.resx">
+      <DependentUpon>UC_CityN_Loai1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MyUserControl\UC_CityN_Loai3.resx">
+      <DependentUpon>UC_CityN_Loai3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyUserControl\UC_CityO_JP.resx">
       <DependentUpon>UC_CityO_JP.cs</DependentUpon>
     </EmbeddedResource>
@@ -377,6 +601,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\ExportExcelCityN.xlsx" />
+    <None Include="Resources\S_City_ExportExcel.xls" />
+    <None Include="Resources\S_City_ExportExcel.xlsx" />
+    <None Include="Resources\S_City_Productivity.xls" />
+    <None Include="Resources\S_City_Productivity_DEJP.xls" />
+    <None Include="Resources\S_City_Productivity_Loai1.xls" />
+    <None Include="Resources\S_City_Productivity_Loai2.xls" />
+    <None Include="Resources\S_City_Productivity_Loai3.xls" />
+    <None Include="Resources\S_City_Productivity_Loai4.xls" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DLL\" />
@@ -386,6 +619,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ExportExcel.xlsx" />
+    <None Include="Resources\ExportExcel_Error.xlsx" />
     <None Include="Resources\Productivity.xlsx" />
     <None Include="Resources\svn_deleted.png" />
   </ItemGroup>

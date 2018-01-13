@@ -1,22 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraGrid;
+using System.Data.SqlClient;
 
 namespace BaoCaoLuong2018.MyForm
 {
     public partial class frm_ChiTietTienDo : DevExpress.XtraEditors.XtraForm
     {
         public string Loai;
-        public string lb_fBatchName;
+        public string BatchID;
+        public string City;
         public frm_ChiTietTienDo()
         {
             InitializeComponent();
@@ -38,13 +37,16 @@ namespace BaoCaoLuong2018.MyForm
         }
         private void DoRowDoubleClick(GridView view, Point pt)
         {
-            //GridHitInfo info = view.CalcHitInfo(pt);
-            //if (info.RowHandle < 0)
-            //    return; 
-            // ShowImage showwImage = new ShowImage();
-            //showwImage.FBatchName = gridView1.GetRowCellValue(info.RowHandle, "fBatchName") + "";
-            //showwImage.IdImage = gridView1.GetRowCellValue(info.RowHandle, "idimage") + "";
-            //showwImage.ShowDialog();
+            GridHitInfo info = view.CalcHitInfo(pt);
+            if (info.RowHandle < 0)
+                return;
+            ShowImage showwImage = new ShowImage();
+            showwImage.BatchName = gridView1.GetRowCellValue(info.RowHandle, "BatchName") + "";
+            showwImage.BatchID = gridView1.GetRowCellValue(info.RowHandle, "BatchID") + "";
+            showwImage.IdImage = gridView1.GetRowCellValue(info.RowHandle, "IDImage") + "";
+            showwImage.City = lb_City.Text;
+            showwImage.Loai = Loai;
+            showwImage.ShowDialog();
         }
         private void gridView1_DoubleClick(object sender, EventArgs e)
         {
@@ -81,82 +83,78 @@ namespace BaoCaoLuong2018.MyForm
             gridView1.DoubleClick += gridView1_DoubleClick;
             gridView1.ShownEditor += gridView1_ShownEditor;
             gridView1.HiddenEditor += gridView1_HiddenEditor;
-            if (lb_fBatchName == "All")
+            if (BatchID.IndexOf("All") >= 0)
             {
-                if (rb_deso.Checked)
+                if (Loai == "DESO")
                 {
-
-                lb_TongSoHinh.Text = lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images select w.IDImage).Count().ToString();
-                lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images where w.TienDoDeSo == "Hình chưa nhập" select w.IDImage).Count().ToString();
-                lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images where w.TienDoDeSo == "Hình đang nhập" select w.IDImage).Count().ToString();
-                lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images where w.TienDoDeSo == "Hình chờ check" select w.IDImage).Count().ToString();
-                lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images where w.TienDoDeSo == "Hình đang check" select w.IDImage).Count().ToString();
-                lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images where w.TienDoDeSo == "Hình hoàn thành" select w.IDImage).Count().ToString();
-
-                gridControl1.DataSource = null;
-                gridControl1.DataSource = Global.Db.ChiTietTienDoDeSo_All();
-                gridView1.RowCellStyle += GridView1_RowCellStyle;
-
-                }
-                else if (rb_dejp.Checked)
-                {
-                    lb_TongSoHinh.Text = lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images select w.IDImage).Count().ToString();
-                    lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images where w.TienDoDeJP == "Hình chưa nhập" select w.IDImage).Count().ToString();
-                    lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images where w.TienDoDeJP == "Hình đang nhập" select w.IDImage).Count().ToString();
-                    lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images where w.TienDoDeJP == "Hình chờ check" select w.IDImage).Count().ToString();
-                    lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images where w.TienDoDeJP == "Hình đang check" select w.IDImage).Count().ToString();
-                    lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images where w.TienDoDeJP == "Hình hoàn thành" select w.IDImage).Count().ToString();
-
+                    lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text select w.IDImage).Count().ToString();
+                    lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeSo == "Hình chưa nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeSo == "Hình đang nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeSo == "Hình chờ check" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeSo == "Hình đang check" select w.IDImage).Count().ToString();
+                    lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeSo == "Hình hoàn thành" select w.IDImage).Count().ToString();
                     gridControl1.DataSource = null;
-                    gridControl1.DataSource = Global.Db.ChiTietTienDoDeJP_All();
+                    string ConnectionString = Global.Db.Connection.ConnectionString;
+                    SqlConnection con = new SqlConnection(ConnectionString);
+                    DataTable data = new DataTable();
+
+                    SqlCommand cmd = new SqlCommand("ChiTietTienDo_All", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@City", lb_City.Text);
+                    cmd.Parameters.AddWithValue("@Type", "DESO");
+                    con.Open();
+                    data.Load(cmd.ExecuteReader());
+                    gridControl1.DataSource = data;
+                    con.Close();
+                    //gridControl1.DataSource = Global.Db.ChiTietTienDo_All(lb_City.Text,"DESO");
                     gridView1.RowCellStyle += GridView1_RowCellStyle;
-
-
                 }
-            }
-            else {
-                if (rb_deso.Checked)
+                else if (Loai == "DEJP")
                 {
-                lb_TongSoHinh.Text =(from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName select w.IDImage).Count().ToString();
-                lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeSo == "Hình chưa nhập" select w.IDImage).Count().ToString();
-                lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeSo == "Hình đang nhập" select w.IDImage).Count().ToString();
-                lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeSo == "Hình chờ check" select w.IDImage).Count().ToString();
-                lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeSo == "Hình đang check" select w.IDImage).Count().ToString();
-                lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeSo == "Hình hoàn thành" select w.IDImage).Count().ToString();
-
-                gridControl1.DataSource = null;
-                gridControl1.DataSource = Global.Db.ChiTietTienDoDeSo(lb_fBatchName);
-                gridView1.RowCellStyle += GridView1_RowCellStyle;
-                }
-                else if (rb_dejp.Checked)
-                {
-
-                    lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName select w.IDImage).Count().ToString();
-                    lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeJP == "Hình chưa nhập" select w.IDImage).Count().ToString();
-                    lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeJP == "Hình đang nhập" select w.IDImage).Count().ToString();
-                    lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeJP == "Hình chờ check" select w.IDImage).Count().ToString();
-                    lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeJP == "Hình đang check" select w.IDImage).Count().ToString();
-                    lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images where w.BatchID == lb_fBatchName && w.TienDoDeJP == "Hình hoàn thành" select w.IDImage).Count().ToString();
-
+                    lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text select w.IDImage).Count().ToString();
+                    lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeJP == "Hình chưa nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeJP == "Hình đang nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeJP == "Hình chờ check" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeJP == "Hình đang check" select w.IDImage).Count().ToString();
+                    lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.TienDoDeJP == "Hình hoàn thành" select w.IDImage).Count().ToString();
                     gridControl1.DataSource = null;
-                    gridControl1.DataSource = Global.Db.ChiTietTienDoDeJP(lb_fBatchName);
+                    gridControl1.DataSource = Global.Db.ChiTietTienDo_All(lb_City.Text, "DEJP");
                     gridView1.RowCellStyle += GridView1_RowCellStyle;
                 }
             }
-           
+            else
+            {
+                if (Loai == "DESO")
+                {
+                    lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID select w.IDImage).Count().ToString();
+                    lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeSo == "Hình chưa nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeSo == "Hình đang nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeSo == "Hình chờ check" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeSo == "Hình đang check" select w.IDImage).Count().ToString();
+                    lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeSo == "Hình hoàn thành" select w.IDImage).Count().ToString();
+                    gridControl1.DataSource = null;
+                    gridControl1.DataSource = Global.Db.ChiTietTienDo(BatchID,lb_City.Text,"DESO");
+                    gridView1.RowCellStyle += GridView1_RowCellStyle;
+                }
+                else if (Loai == "DEJP")
+                {
+
+                    lb_TongSoHinh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID select w.IDImage).Count().ToString();
+                    lb_SoHinhChuaNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeJP == "Hình chưa nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangNhap.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeJP == "Hình đang nhập" select w.IDImage).Count().ToString();
+                    lb_SoHinhChoCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeJP == "Hình chờ check" select w.IDImage).Count().ToString();
+                    lb_SoHinhDangCheck.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeJP == "Hình đang check" select w.IDImage).Count().ToString();
+                    lb_SoHinhHoanThanh.Text = (from w in Global.Db.tbl_Images join b in Global.Db.tbl_Batches on w.BatchID equals (b.BatchID) where b.City == lb_City.Text & w.BatchID == BatchID & w.TienDoDeJP == "Hình hoàn thành" select w.IDImage).Count().ToString();
+                    gridControl1.DataSource = null;
+                    gridControl1.DataSource = Global.Db.ChiTietTienDo(BatchID, lb_City.Text, "DEJP");
+                    gridView1.RowCellStyle += GridView1_RowCellStyle;
+                }
+            }
         }
 
         private void GridView1_RowCellStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowCellStyleEventArgs e)
         {
             GridView View = sender as GridView;
-            //doi mau row chan
-            //if (e.RowHandle >= 0)
-            //{
-            //    if (e.RowHandle % 2 == 0)//    {
-            //        e.Appearance.BackColor = Color.AntiqueWhite;
-            //    }
-            //}
-            //Doi mau cell cua colummn Status, neu co gia tri Actived thi co mau xanh, neu co gia tri N/A thi co mau hong`
             if (e.Column.FieldName == "ThongTin")
             {
                 string category = View.GetRowCellDisplayText(e.RowHandle, View.Columns["ThongTin"]);
@@ -182,16 +180,16 @@ namespace BaoCaoLuong2018.MyForm
 
         private void repositoryItemPopupContainerEdit1_Click(object sender, EventArgs e)
         {
-            string idimage = gridView1.GetFocusedRowCellValue("idimage").ToString();
+            string idimage = gridView1.GetFocusedRowCellValue("IDImage").ToString();
             string batchID = gridView1.GetFocusedRowCellValue("BatchID").ToString();
             gridControl2.DataSource = null;
-            if (rb_deso.Checked)
+            if(Loai=="DESO" || BatchID=="AllDESO")
             {
-                gridControl2.DataSource = Global.Db.ChiTietUserDeSo(batchID, idimage);
+                gridControl2.DataSource = Global.Db.ChiTietUser(batchID, idimage,lb_City.Text,"DESO");
             }
-            else if (rb_dejp.Checked)
+            else if (Loai == "DEJP" || BatchID == "AllDEJP")
             {
-                gridControl2.DataSource = Global.Db.ChiTietUserDeJP(batchID, idimage);
+                gridControl2.DataSource = Global.Db.ChiTietUser(batchID, idimage, lb_City.Text, "DEJP");
             }
         }
 
@@ -202,14 +200,12 @@ namespace BaoCaoLuong2018.MyForm
 
         private void rb_deso_CheckedChanged(object sender, EventArgs e)
         {
-            frm_ChiTietTienDo_Load(null, null);
+            //frm_ChiTietTienDo_Load(null, null);
         }
 
         private void rb_dejp_CheckedChanged(object sender, EventArgs e)
         {
-            frm_ChiTietTienDo_Load(null, null);
+            //frm_ChiTietTienDo_Load(null, null);
         }
-
-       
     }
 }

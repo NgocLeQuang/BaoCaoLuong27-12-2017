@@ -73,9 +73,99 @@ namespace BaoCaoLuong2018.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] ExportExcel_Error {
+            get {
+                object obj = ResourceManager.GetObject("ExportExcel_Error", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ExportExcelCityN {
+            get {
+                object obj = ResourceManager.GetObject("ExportExcelCityN", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Productivity {
             get {
                 object obj = ResourceManager.GetObject("Productivity", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_ExportExcel {
+            get {
+                object obj = ResourceManager.GetObject("S_City_ExportExcel", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_Productivity {
+            get {
+                object obj = ResourceManager.GetObject("S_City_Productivity", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_Productivity_DEJP {
+            get {
+                object obj = ResourceManager.GetObject("S_City_Productivity_DEJP", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_Productivity_Loai1 {
+            get {
+                object obj = ResourceManager.GetObject("S_City_Productivity_Loai1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_Productivity_Loai2 {
+            get {
+                object obj = ResourceManager.GetObject("S_City_Productivity_Loai2", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_Productivity_Loai3 {
+            get {
+                object obj = ResourceManager.GetObject("S_City_Productivity_Loai3", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] S_City_Productivity_Loai4 {
+            get {
+                object obj = ResourceManager.GetObject("S_City_Productivity_Loai4", resourceCulture);
                 return ((byte[])(obj));
             }
         }

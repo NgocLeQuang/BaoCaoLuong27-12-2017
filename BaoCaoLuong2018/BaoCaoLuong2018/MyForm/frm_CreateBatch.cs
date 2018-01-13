@@ -13,7 +13,6 @@ namespace BaoCaoLuong2018.MyForm
 {
     public partial class frm_CreateBatch : DevExpress.XtraEditors.XtraForm
     {
-        private string _csvpath = "";
         private string[] _lFileNames;
         private bool _multi;
         private int soluonghinh;
@@ -52,7 +51,7 @@ namespace BaoCaoLuong2018.MyForm
             soluonghinh = dlg.FileNames.Length;
             lb_SoLuongHinh.Text = dlg.FileNames.Length + " files ";
         }
-
+        string folderBatch = "";
         private void btn_CreateBatch_Click(object sender, EventArgs e)
         {
             if (backgroundWorker1.IsBusy)
@@ -60,17 +59,25 @@ namespace BaoCaoLuong2018.MyForm
                 MessageBox.Show("Quá trình tạo batch đang diễn ra, Bạn hãy chờ quá trình tạo batch kết thúc mới tiếp tục tạo batch mới !");
                 return;
             }
+            if (txt_LoaiPhieu.Text == "CityN" && string.IsNullOrEmpty(cbb_FileTXT.Text))
+            {
+                if(MessageBox.Show("Bạn chưa chọn file txt. Bạn muốn tiếp tục ?","Xác nhận",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2)==DialogResult.No)
+                {
+                    return;
+                }
+            }
             lb_SobatchHoanThanh.Text = "";
             txt_DateCreate.Text = DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString();
             backgroundWorker1.RunWorkerAsync();
+            //UpLoadMulti();
         }
 
         private void txt_BatchName_EditValueChanged(object sender, EventArgs e)
         {
+            folderBatch = "";
             if (!string.IsNullOrEmpty(txt_BatchName.Text))
             {
                 _multi = false;
-                
                 txt_PathFolder.Enabled = false;
                 btn_Browser.Enabled = false;
             }
@@ -83,37 +90,55 @@ namespace BaoCaoLuong2018.MyForm
 
         private void txt_PathFolder_EditValueChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txt_PathFolder.Text))
+            try
             {
-                _multi = true;
-                
-                txt_BatchName.Enabled = false;
-                txt_ImagePath.Enabled = false;
-                btn_BrowserImage.Enabled = false;
+                if (!string.IsNullOrEmpty(txt_PathFolder.Text))
+                {
+                    _multi = true;
+                    folderBatch = Path.GetFileName(Path.GetDirectoryName(txt_PathFolder.Text+@"\"));
+                    txt_BatchName.Enabled = false;
+                    txt_ImagePath.Enabled = false;
+                    btn_BrowserImage.Enabled = false;
+                }
+                else
+                {
+                    folderBatch = "";
+                    txt_BatchName.Enabled = true;
+                    txt_ImagePath.Enabled = true;
+                    btn_BrowserImage.Enabled = true;
+                }
             }
-            else
+            catch
             {
-                txt_BatchName.Enabled = true;
-                txt_ImagePath.Enabled = true;
-                btn_BrowserImage.Enabled = true;
+                folderBatch = "";
             }
         }
         public string City = "";
         private bool flag_load = false;
         private void frm_CreateBatch_Load(object sender, EventArgs e)
         {
+            flag_load = true;
             chk_ChiaUser.Checked = true;
             txt_UserCreate.Text = Global.StrUserName;
             txt_DateCreate.Text = DateTime.Now.ToShortDateString() + "-" + DateTime.Now.ToShortTimeString();
 
+            txt_LoaiPhieu.Items.Clear();
             txt_LoaiPhieu.Items.Add(new { Text = "", Value = "" });
-            txt_LoaiPhieu.Items.Add(new { Text = "CityN", Value = "CityS" });
+            txt_LoaiPhieu.Items.Add(new { Text = "CityN", Value = "CityN" });
             txt_LoaiPhieu.Items.Add(new { Text = "CityO", Value = "CityO" });
-            txt_LoaiPhieu.Items.Add(new { Text = "CityS", Value = "CityS" });
+            //txt_LoaiPhieu.Items.Add(new { Text = "CityS", Value = "CityS" });
             txt_LoaiPhieu.DisplayMember = "Text";
             txt_LoaiPhieu.ValueMember = "Value";
             txt_LoaiPhieu.Text = City;
-            flag_load = true;
+            if (txt_LoaiPhieu.Text == "CityN")
+            {
+                cbb_FileTXT.DataSource = (from w in Global.Db.tbl_CityN_DataOCRs
+                                          where w.FileName != null && w.FileName != ""
+                                          group w by new { w.FileName } into g
+                                          orderby g.Key.FileName ascending
+                                          select g.Key.FileName).ToList();
+            }
+            flag_load = false;
             txt_BatchName.Focus();
         }
 
@@ -198,6 +223,8 @@ namespace BaoCaoLuong2018.MyForm
             SqlCommand cmd = new SqlCommand("Insert_Image", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@BatchID", sBatchID);
+            cmd.Parameters.AddWithValue("@City", txt_LoaiPhieu.Text+"");
+            cmd.Parameters.AddWithValue("@FileNameTXT", cbb_FileTXT.Text+"");
             cmd.Parameters.AddWithValue("@ListIdImage", dt);
             cmd.Parameters.AddWithValue("@ChiaUser", chk_ChiaUser.Checked ? 1 : 0);
             con.Open();
@@ -216,143 +243,123 @@ namespace BaoCaoLuong2018.MyForm
             lb_SoLuongHinh.Text = "";
 
         }
-
+        string sBatchID = "", batch="";
         private void UpLoadMulti()
         {
-            //btn_Browser.Enabled = false;
-            //txt_PathFolder.Enabled = false;
-            //txt_Location.Enabled = false;
-            //List<string> lStrBath = new List<string>();
-            //lStrBath.AddRange(Directory.GetDirectories(txt_PathFolder.Text));
-            //int countBatchExists = 0;
-            //string listBatchExxists = "";
-            //for (int i = 0; i < lStrBath.Count; i++)
-            //{
-            //    var batchExists = (from w in Global.db.tbl_Batches where w.fBatchName == new DirectoryInfo(lStrBath[i]).Name select w.fBatchName).ToList();
-            //    if (batchExists.Count > 0)
-            //    {
-            //        countBatchExists += 1;
-            //        listBatchExxists += batchExists[0] + "\r\n";
-            //    }
-            //}
-            //if (countBatchExists>0)
-            //{
-            //    MessageBox.Show("Batch đã tồn tại :\r\n" + listBatchExxists);
-            //    btn_Browser.Enabled = true;
-            //    txt_PathFolder.Enabled = true;
-            //    txt_Location.Enabled = true;
-            //    return;
-            //}
-            //int n = 0;
-            //foreach (string itemBatch in lStrBath)
-            //{
-            //    string batchName = "", loaiPhieu = "", pathPicture = "";
-            //    int m = 0;
-            //    batchName = new DirectoryInfo(itemBatch).Name;
-            //    if (batchName.IndexOf("AEON", StringComparison.Ordinal) >= 0 || batchName.IndexOf("aeon", StringComparison.Ordinal) >= 0)
-            //    {
-            //        loaiPhieu = "AEON";
-            //    }
-            //    else if (batchName.IndexOf("ASAHI", StringComparison.Ordinal) >= 0 || batchName.IndexOf("asahi", StringComparison.Ordinal) >= 0)
-            //    {
-            //        loaiPhieu = "ASAHI";
-            //    }
-            //    else if (batchName.IndexOf("EIZEN", StringComparison.Ordinal) >= 0 || batchName.IndexOf("eizen", StringComparison.Ordinal) >= 0)
-            //    {
-            //        loaiPhieu = "EIZEN";
-            //    }
-            //    else if (batchName.IndexOf("YAMAMOTO", StringComparison.Ordinal) >= 0 || batchName.IndexOf("yamamoto", StringComparison.Ordinal) >= 0)
-            //    {
-            //        loaiPhieu = "YAMAMOTO";
-            //    }
-            //    else if (batchName.IndexOf("YASUDA", StringComparison.Ordinal) >= 0 || batchName.IndexOf("yasuda", StringComparison.Ordinal) >= 0)
-            //    {
-            //        loaiPhieu = "YASUDA";
-            //    }
-            //    else if (batchName.IndexOf("TAIYO", StringComparison.Ordinal) >= 0 || batchName.IndexOf("taiyo", StringComparison.Ordinal) >= 0)
-            //    {
-            //        loaiPhieu = "TAIYO";
-            //    }
-            //    else
-            //    {
-            //        continue;
-            //    }
+            btn_Browser.Enabled = false;
+            txt_PathFolder.Enabled = false;
+            txt_Location.Enabled = false;
+            List<string> lStrBath = new List<string>();
+            lStrBath.AddRange(Directory.GetDirectories(txt_PathFolder.Text));
+            int countBatchExists = 0;
+            string listBatchExxists = "";
+            for (int i = 0; i < lStrBath.Count; i++)
+            {
+                sBatchID = (new DirectoryInfo(lStrBath[i]).Name + txt_LoaiPhieu.Text + txt_DateCreate.Text).Replace("/", "").Replace(@"\", "").Replace(@":", "").Replace(@"-", "");
+                batch = (from w in Global.Db.tbl_Batches.Where(w => w.BatchID == sBatchID) select w.BatchID).FirstOrDefault();
+                if (!string.IsNullOrEmpty(batch))
+                {
+                    countBatchExists += 1;
+                    listBatchExxists += lStrBath[i] + "\r\n";
+                }
+            }
+            if (countBatchExists > 0)
+            {
+                MessageBox.Show("Batch đã tồn tại :\r\n" + listBatchExxists);
+                btn_Browser.Enabled = true;
+                txt_PathFolder.Enabled = true;
+                txt_Location.Enabled = true;
+                return;
+            }
+            int n = 0;
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new[] { new DataColumn("ImageID", typeof(string)) });
+            foreach (string itemBatch in lStrBath)
+            {
+                dt.Clear();
+                string batchName = "";
+                int m = 0;
+                batchName = (new DirectoryInfo(itemBatch).Name + txt_LoaiPhieu.Text + txt_DateCreate.Text).Replace("/", "").Replace(@"\", "").Replace(@":", "").Replace(@"-", "");
 
-            //    n += 1;
-            //    lb_SobatchHoanThanh.Text = n + @" :";
+                n += 1;
+                lb_SobatchHoanThanh.Text = n + @" :";
 
-            //    pathPicture = itemBatch + @"\入力画像";
-            //    var fBatch = new tbl_Batch
-            //    {
-            //        fBatchName = batchName,
-            //        fUserCreate = txt_UserCreate.Text,
-            //        fDateCreated = DateTime.Now,
-            //        fPathPicture = pathPicture,
-            //        fLocation = txt_Location.Text,
-            //        fSoLuongAnh = Directory.GetFiles(pathPicture).Length.ToString(),
-            //        fLoaiPhieu = loaiPhieu
-            //    };
-            //    Global.db.tbl_Batches.InsertOnSubmit(fBatch);
-            //    Global.db.SubmitChanges();
+                var filters = new String[] { "jpg", "jpeg", "png", "gif", "tif", "bmp" };
+                string[] pathImageLocation = GetFilesFrom(itemBatch, filters, false);
+
+                var fBatch = new tbl_Batch
+                {
+                    BatchID = batchName,
+                    City = txt_LoaiPhieu.Text,
+                    BatchName = new DirectoryInfo(itemBatch).Name,
+                    UserCreate = txt_UserCreate.Text,
+                    DateCreate = DateTime.Now,
+                    PathPicture = txt_Location.Text,
+                    Location = txt_PathFolder.Text,
+                    NumberImage = pathImageLocation.Length+"",
+                    ChiaUser = chk_ChiaUser.Checked ? true : false,
+                    CongKhaiBatch = false,
+                    Truong_005 = txt_Truong_005.Text,
+                    Truong_006 = txt_Truong_006.Text,
+                    Truong_016 = txt_Truong_016.Text,
+                    Truong_017 = txt_Truong_017.Text,
+                };
+                Global.Db.tbl_Batches.InsertOnSubmit(fBatch);
+                Global.Db.SubmitChanges();
                 
-            //    var filters = new String[] { "jpg", "jpeg", "png", "gif", "tif", "bmp" };
-            //    string[] pathImageLocation = GetFilesFrom(pathPicture, filters, false);
-            //    string pathImageServer = Global.StrPath + "\\" + new DirectoryInfo(itemBatch).Name;
-            //    Directory.CreateDirectory(pathImageServer);
-            //    string imageJPG = "";
+                progressBar1.Step = 1;
+                progressBar1.Value = 1;
+                progressBar1.Maximum = pathImageLocation.Length;
+                progressBar1.Minimum = 0;
+                ModifyProgressBarColor.SetState(progressBar1, 1);
 
-            //    progressBar1.Step = 1;
-            //    progressBar1.Value = 1;
-            //    progressBar1.Maximum = pathImageLocation.Length;
-            //    progressBar1.Minimum = 0;
-            //    ModifyProgressBarColor.SetState(progressBar1, 1);
+                for (int i = 0; i < pathImageLocation.Count(); i++)
+                {
+                    FileInfo fi = new FileInfo(pathImageLocation[i]);
+                    dt.Rows.Add(fi.Name);
+                }
+                string ConnectionString = Global.Db.Connection.ConnectionString;
+                SqlConnection con = new SqlConnection(ConnectionString);
+                SqlCommand cmd = new SqlCommand("Insert_Image", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@BatchID", batchName);
+                cmd.Parameters.AddWithValue("@City", txt_LoaiPhieu.Text + "");
+                cmd.Parameters.AddWithValue("@FileNameTXT", cbb_FileTXT.Text + "");
+                cmd.Parameters.AddWithValue("@ListIdImage", dt);
+                cmd.Parameters.AddWithValue("@ChiaUser", chk_ChiaUser.Checked ? 1 : 0);
+                con.Open();
+                cmd.ExecuteNonQuery();
 
-            //    foreach (string i in pathImageLocation)
-            //    {
-            //        FileInfo fi = new FileInfo(i);
-            //        tbl_Image tempImage = new tbl_Image
-            //        {
-            //            fbatchname = batchName,
-            //            idimage = Path.GetFileName(fi.ToString()),
-            //            ReadImageDESo = 0,
-            //            CheckedDESo = 0,
-            //            Checked_QC = 0,
-            //            TienDoDESO = "Hình chưa nhập",
-            //            CheckQC = false
-            //        };
-                    
-            //        Global.db.tbl_Images.InsertOnSubmit(tempImage);
-            //        Global.db.SubmitChanges();
-            //        //tbl_TienDo tempTblTienDo = new tbl_TienDo
-            //        //{
-            //        //    IDProject = "JEMS",
-            //        //    fBatchName = txt_BatchName.Text,
-            //        //    Idimage = Path.GetFileName(fi.ToString()),
-            //        //    TienDoDeSo = "Hình chưa nhập",
-            //        //    UserCheckDeSo = "",
-            //        //    DateCreate = DateTime.Now
-            //        //};
-            //        //Global.db_BPO.tbl_TienDos.InsertOnSubmit(tempTblTienDo);
-            //        //Global.db_BPO.SubmitChanges();
-
-            //        string des = pathImageServer + @"\" + Path.GetFileName(fi.ToString());
-            //        fi.CopyTo(des);
-            //        m += 1;
-            //        lb_SoImageDaHoanThanh.Text = m + @"/" + pathImageLocation.Length;
-            //        progressBar1.PerformStep();
-            //    }
-            //}
-            //MessageBox.Show(@"Tạo batch mới thành công!");
-            //txt_BatchName.Text = "";
-            //txt_ImagePath.Text = "";
-            //lb_SoLuongHinh.Text = "";
-            //txt_PathFolder.Text = "";
-            //txt_LoaiPhieu.SelectedIndex = 0;
-
-            ////btn_CreateBatch.Enabled = true;
-            //btn_Browser.Enabled = true;
-            //txt_PathFolder.Enabled = true;
-            //txt_Location.Enabled = true;
+                string temp = Global.StrPath + "\\" + batchName;
+                if (!Directory.Exists(temp))
+                {
+                    Directory.CreateDirectory(temp);
+                }
+                else
+                {
+                    MessageBox.Show("Bị trùng tên batch!");
+                    return;
+                }
+                for (int i = 0; i < pathImageLocation.Count(); i++)
+                {
+                    File.Copy(pathImageLocation[i], temp + @"\" + new FileInfo(pathImageLocation[i]).Name);
+                    progressBar1.PerformStep();
+                    lb_SoImageDaHoanThanh.Text = (i + 1) + @"\" + pathImageLocation.Count();
+                    m += 1;
+                }
+                lb_SoImageDaHoanThanh.Text = m + @"/" + pathImageLocation.Length;
+                progressBar1.PerformStep();
+            }
+            MessageBox.Show(@"Tạo batch mới thành công!");
+            txt_BatchName.Text = "";
+            txt_ImagePath.Text = "";
+            lb_SoLuongHinh.Text = "";
+            txt_PathFolder.Text = "";
+            txt_LoaiPhieu.SelectedIndex = 0;
+            //btn_CreateBatch.Enabled = true;
+            btn_Browser.Enabled = true;
+            txt_PathFolder.Enabled = true;
+            txt_Location.Enabled = true;
         }
 
 
@@ -404,6 +411,157 @@ namespace BaoCaoLuong2018.MyForm
         private void txt_ImagePath_EditValueChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbb_FileTXT_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar != 3)
+                e.Handled = true;
+        }
+
+        private void cbb_FileTXT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+                ((ComboBox)sender).Text = "";
+        }
+        private void txt_LoaiPhieu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (flag_load)
+                return;
+            if (txt_LoaiPhieu.Text != "CityN")
+            {
+                txt_Truong_005.Text = "";
+                txt_Truong_006.Text = "";
+                txt_Truong_016.Text = "";
+                txt_Truong_017.Text = "";
+                txt_Truong_005.Enabled = false;
+                txt_Truong_006.Enabled = false;
+                txt_Truong_016.Enabled = false;
+                txt_Truong_017.Enabled = false;
+                cbb_FileTXT.DataSource = null;
+            }
+            else
+            {
+                txt_Truong_005.Enabled = true;
+                txt_Truong_006.Enabled = true;
+                txt_Truong_016.Enabled = true;
+                txt_Truong_017.Enabled = true;
+                cbb_FileTXT.Text = "";
+                cbb_FileTXT.DataSource = null;
+                cbb_FileTXT.DataSource = (from w in Global.Db.tbl_CityN_DataOCRs
+                                          where w.FileName != null && w.FileName != ""
+                                          group w by new { w.FileName } into g
+                                          orderby g.Key.FileName ascending
+                                          select g.Key.FileName).ToList();
+                cbb_FileTXT.DisplayMember = "FileName";
+            }
+        }
+
+        private void btn_AddFileTXT_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.AddRange(new[] { new DataColumn("LineDate", typeof(string)) });
+            dt.Columns.AddRange(new[] { new DataColumn("STT", typeof(string)) });
+            string strFileName = "";
+            OpenFileDialog oFile = new OpenFileDialog();
+            oFile.RestoreDirectory = true;
+            oFile.Filter = "txt files (.txt)|*.txt|All files (.*)|*.*";
+            oFile.Title = "Vui lòng chọn file OCR";
+            oFile.Multiselect = false;
+            if (oFile.ShowDialog() == DialogResult.OK)
+            {
+                strFileName = oFile.FileName;
+            }
+            List<string> listLineError = new List<string>();
+            string[] lines = File.ReadAllLines(strFileName);
+            int n = 0;
+            for(int i=0;i<lines.Length;i++)
+            {
+                dt.Rows.Add(lines[i], ThemKyTuPhiaTruoc((i + 1)+""));
+                if (lines[i].Length != 700)
+                {
+                    listLineError.Add(n.ToString());
+                    continue;
+                }
+            }
+            if(listLineError.Count>0)
+            {
+                dt.Clear();
+                string s = "";
+                for(int j=0;j<listLineError.Count();j++)
+                {
+                    s += listLineError[j] + "\r\n";
+                }
+                MessageBox.Show("File txt bạn chọn có số ký tự trong 1 dòng không đúng. Dòng sau đây lỗi:\r\n" + s);
+                return;
+            }
+            FileInfo fi = new FileInfo(strFileName);
+            if ((from w in Global.Db.tbl_CityN_DataOCRs
+                 where w.FileName != null && w.FileName != ""
+                 group w by new { w.FileName } into g
+                 orderby g.Key.FileName ascending
+                 select g.Key.FileName).ToList().Contains(fi.Name.Replace(".txt", "").Replace(".TXT", "")))
+            {
+                MessageBox.Show("File txt này đã tồn tại trong Database. Hãy Kiểm tra lại");
+                return;
+            }
+            string ConnectionString = Global.Db.Connection.ConnectionString;
+            SqlConnection con = new SqlConnection(ConnectionString);
+            SqlCommand cmd = new SqlCommand("LoadDataFromOCRFile_New", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@FileName", fi.Name.Replace(".txt","").Replace(".TXT",""));
+            cmd.Parameters.AddWithValue("@ListData", dt);
+            con.Open();
+            cmd.ExecuteNonQuery();
+            MessageBox.Show("Tạo file txt thành công.");
+            if(txt_LoaiPhieu.Text!="CityN")
+            {
+                cbb_FileTXT.Text = "";
+                cbb_FileTXT.DataSource = null;
+            }
+            cbb_FileTXT.DataSource = (from w in Global.Db.tbl_CityN_DataOCRs
+                                      where w.FileName != null && w.FileName != ""
+                                      group w by new { w.FileName } into g
+                                      orderby g.Key.FileName ascending
+                                      select g.Key.FileName).ToList();
+            cbb_FileTXT.DisplayMember = "FileName";
+        }
+
+        string getcharacter(int n, string str)
+        {
+            string kq = "";
+            for (int i = 1; i <= n; i++)
+            {
+                kq = kq.Insert(kq.Length, str);
+            }
+            return kq;
+        }
+
+        public string ThemKyTuPhiaTruoc(string input)
+        {
+            return input.Insert(0, getcharacter(6 - input.Length, "0"));
+        }
+        private void btn_DeleteFileTXT_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(cbb_FileTXT.Text))
+            {
+                if (MessageBox.Show("Bạn chắc chắn muốn xóa file txt :\r\n" + cbb_FileTXT.Text, "Cảnh bảo", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    Global.Db.DeleteFileTXT(cbb_FileTXT.Text+"");
+                    MessageBox.Show("Đã xóa file txt.");
+                    if (txt_LoaiPhieu.Text != "CityN")
+                    {
+                        cbb_FileTXT.Text = "";
+                        cbb_FileTXT.DataSource = null;
+                    }
+                    cbb_FileTXT.DataSource = (from w in Global.Db.tbl_CityN_DataOCRs
+                                              where w.FileName != null && w.FileName != ""
+                                              group w by new { w.FileName } into g
+                                              orderby g.Key.FileName ascending
+                                              select g.Key.FileName).ToList();
+                    cbb_FileTXT.DisplayMember = "FileName";
+                }
+            }
         }
     }
     public static class ModifyProgressBarColor

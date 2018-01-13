@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.LookAndFeel;
@@ -41,6 +40,7 @@ namespace BaoCaoLuong2018.MyForm
             lb_ngay.Text = DateTime.Now.ToShortDateString();
             lb_gio.Text = DateTime.Now.ToShortTimeString();
             cbb_City.SelectedIndex = 0;
+            cbb_City.Text = Settings.Default.CityName;
             if (Settings.Default.Check)
             {
                 txt_username.Text = Settings.Default.username;
@@ -112,6 +112,7 @@ namespace BaoCaoLuong2018.MyForm
                         Settings.Default.Check = false;
                         Settings.Default.Save();
                     }
+                    Settings.Default.CityName = cbb_City.Text;
                     Global.Token = Global.GetToken(txt_username.Text);
                     Global.StrBatch = cbb_batchname.Text;
                     Global.StrBatchID =  cbb_batchname.Text==""?"": cbb_batchname.SelectedValue.ToString();
@@ -171,7 +172,7 @@ namespace BaoCaoLuong2018.MyForm
             Application.Exit();
         }
         
-        private void txt_username_TextChanged(object sender, EventArgs e)
+        public void txt_username_TextChanged(object sender, EventArgs e)
         {
             cbb_batchname.DataSource = null;
             GetInfo();
@@ -184,46 +185,60 @@ namespace BaoCaoLuong2018.MyForm
             GetInfo();
             cbb_City_SelectedIndexChanged(null, null);           
         }
-
-        private void cbb_batchname_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar != 3)
-            {
-                e.Handled = true;
-            }
-        }
-
+        
         private void cbb_City_SelectedIndexChanged(object sender, EventArgs e)
         {
+            #region City_S
+            var ktUser = (from w in Global.DbBpo.tbl_Users where w.Username == txt_username.Text select w.NotGoodUser).FirstOrDefault();
+            if (cbb_City.Text == "CityS")
+            {
+                cbb_batchname.DataSource = null;
+                if (txt_role.Text == "ADMIN")
+                {
+                    cbb_batchname.DataSource = BaoCaoLuonng2017.Global.db_BCL.GetBatch();
+                    cbb_batchname.DisplayMember = "fBatchName";
+                }
+                else if (txt_role.Text == "DEJP" || txt_role.Text == "DESO")
+                {
+                    cbb_batchname.DataSource = BaoCaoLuonng2017.Global.db_BCL.GetBatch_Input(txt_username.Text,txt_role.Text.ToUpper(), ktUser.Value?0:1);
+                    cbb_batchname.DisplayMember = "fBatchName";
+                }
+                //else if (txt_role.Text == "DEJP")
+                //{
+                //    cbb_batchname.DataSource = BaoCaoLuonng2017.Global.db_BCL.GetBatNotFinishDeJP(txt_username.Text);
+                //    cbb_batchname.DisplayMember = "fBatchName";
+                //}
+                //else if (txt_role.Text == "DESO")
+                //{
+                //    cbb_batchname.DataSource = BaoCaoLuonng2017.Global.db_BCL.GetBatNotFinishDeSo(txt_username.Text);
+                //    cbb_batchname.DisplayMember = "fBatchName";
+                //}
+                else if (txt_role.Text == "CHECKERDEJP")
+                {
+                    cbb_batchname.DataSource = BaoCaoLuonng2017.Global.db_BCL.GetBatNotFinishCheckerDeJP(txt_username.Text);
+                    cbb_batchname.DisplayMember = "fBatchName";
+                }
+                else if (txt_role.Text == "CHECKERDESO")
+                {
+                    cbb_batchname.DataSource = BaoCaoLuonng2017.Global.db_BCL.GetBatNotFinishCheckerDeSo(txt_username.Text);
+                    cbb_batchname.DisplayMember = "fBatchName";
+                }
+                return;
+            }
+            #endregion
             cbb_batchname.DataSource = null;
             GetInfo();
-            var ktUser = (from w in Global.DbBpo.tbl_Users where w.Username == txt_username.Text select w.NotGoodUser).FirstOrDefault();
-            if (txt_role.Text == "DESO")
+            if (txt_role.Text == "DESO"|| txt_role.Text == "DEJP")
             {
                 if (ktUser == false)
                 {
-                    cbb_batchname.DataSource = (from w in (Global.Db.GetBatNotFinishDeSo_Good(txt_username.Text, cbb_City.Text)) select new { w.BatchID, w.BatchName }).ToList();
+                    cbb_batchname.DataSource = (from w in (Global.Db.GetBatNotFinishDeGood(txt_username.Text, cbb_City.Text,txt_role.Text.ToUpper())) select new { w.BatchID, w.BatchName }).ToList();
                     cbb_batchname.DisplayMember = "BatchName";
                     cbb_batchname.ValueMember = "BatchID";
                 }
                 else if (ktUser == true)
                 {
-                    cbb_batchname.DataSource = (from w in (Global.Db.GetBatNotFinishDeSo_NotGood(txt_username.Text,cbb_City.Text)) select new { w.BatchID, w.BatchName }).ToList();
-                    cbb_batchname.DisplayMember = "BatchName";
-                    cbb_batchname.ValueMember = "BatchID";
-                }
-            }
-            else if (txt_role.Text=="DEJP")
-            {
-                if (ktUser == false)
-                {
-                    cbb_batchname.DataSource = (from w in (Global.Db.GetBatNotFinishDeJP_Good(txt_username.Text, cbb_City.Text)) select new { w.BatchID, w.BatchName }).ToList();
-                    cbb_batchname.DisplayMember = "BatchName";
-                    cbb_batchname.ValueMember = "BatchID";
-                }
-                else if (ktUser == true)
-                {
-                    cbb_batchname.DataSource = (from w in (Global.Db.GetBatNotFinishDeJP_NotGood(txt_username.Text,cbb_City.Text)) select new { w.BatchID, w.BatchName }).ToList();
+                    cbb_batchname.DataSource = (from w in (Global.Db.GetBatNotFinishDeNotGood(txt_username.Text,cbb_City.Text, txt_role.Text.ToUpper())) select new { w.BatchID, w.BatchName }).ToList();
                     cbb_batchname.DisplayMember = "BatchName";
                     cbb_batchname.ValueMember = "BatchID";
                 }
@@ -248,5 +263,16 @@ namespace BaoCaoLuong2018.MyForm
             }
         }
 
+        private void cbb_City_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Back || e.KeyCode == Keys.Delete)
+                ((System.Windows.Forms.ComboBox)sender).Text = "";
+        }
+
+        private void cbb_City_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar != 3 && (int)e.KeyChar != 1)
+                e.Handled = true;
+        }
     }
 }

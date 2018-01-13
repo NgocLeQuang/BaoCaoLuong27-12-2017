@@ -73,6 +73,7 @@ namespace BaoCaoLuong2018.MyForm
             showwImage.BatchID = gridView1.GetRowCellValue(info.RowHandle, "BatchID") + "";
             showwImage.BatchName = gridView1.GetRowCellValue(info.RowHandle, "BatchName") + "";
             showwImage.IdImage = gridView1.GetRowCellValue(info.RowHandle, "IDImage") + "";
+            showwImage.City = Global.StrCity;
             showwImage.ShowDialog();
         }
         private void gridView1_DoubleClick(object sender, EventArgs e)

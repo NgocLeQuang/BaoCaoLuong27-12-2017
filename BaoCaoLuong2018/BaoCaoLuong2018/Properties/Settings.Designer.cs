@@ -1412,5 +1412,390 @@ namespace BaoCaoLuong2018.Properties {
                 this["PositionSplitCheck"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CityO")]
+        public string CityName {
+            get {
+                return ((string)(this["CityName"]));
+            }
+            set {
+                this["CityName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.165.10;Initial Catalog=BaoCaoLuong2017_CityS;Persist Security" +
+            " Info=True;User ID=sa;Password=BPO@DN#2013")]
+        public string BaoCaoLuong2017_CitySConnectionString {
+            get {
+                return ((string)(this["BaoCaoLuong2017_CitySConnectionString"]));
+            }
+            set {
+                this["BaoCaoLuong2017_CitySConnectionString"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong11 {
+            get {
+                return ((string)(this["Truong11"]));
+            }
+            set {
+                this["Truong11"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong14 {
+            get {
+                return ((string)(this["Truong14"]));
+            }
+            set {
+                this["Truong14"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong28_1 {
+            get {
+                return ((string)(this["Truong28_1"]));
+            }
+            set {
+                this["Truong28_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong28_2 {
+            get {
+                return ((string)(this["Truong28_2"]));
+            }
+            set {
+                this["Truong28_2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong74_1 {
+            get {
+                return ((string)(this["Truong74_1"]));
+            }
+            set {
+                this["Truong74_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong74_2 {
+            get {
+                return ((string)(this["Truong74_2"]));
+            }
+            set {
+                this["Truong74_2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong74_3 {
+            get {
+                return ((string)(this["Truong74_3"]));
+            }
+            set {
+                this["Truong74_3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong74_4 {
+            get {
+                return ((string)(this["Truong74_4"]));
+            }
+            set {
+                this["Truong74_4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong114 {
+            get {
+                return ((string)(this["Truong114"]));
+            }
+            set {
+                this["Truong114"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong116 {
+            get {
+                return ((string)(this["Truong116"]));
+            }
+            set {
+                this["Truong116"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong118 {
+            get {
+                return ((string)(this["Truong118"]));
+            }
+            set {
+                this["Truong118"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong120 {
+            get {
+                return ((string)(this["Truong120"]));
+            }
+            set {
+                this["Truong120"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong122 {
+            get {
+                return ((string)(this["Truong122"]));
+            }
+            set {
+                this["Truong122"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong124 {
+            get {
+                return ((string)(this["Truong124"]));
+            }
+            set {
+                this["Truong124"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong128 {
+            get {
+                return ((string)(this["Truong128"]));
+            }
+            set {
+                this["Truong128"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong130 {
+            get {
+                return ((string)(this["Truong130"]));
+            }
+            set {
+                this["Truong130"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong132 {
+            get {
+                return ((string)(this["Truong132"]));
+            }
+            set {
+                this["Truong132"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong134 {
+            get {
+                return ((string)(this["Truong134"]));
+            }
+            set {
+                this["Truong134"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong136 {
+            get {
+                return ((string)(this["Truong136"]));
+            }
+            set {
+                this["Truong136"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong138_1 {
+            get {
+                return ((string)(this["Truong138_1"]));
+            }
+            set {
+                this["Truong138_1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong138_2 {
+            get {
+                return ((string)(this["Truong138_2"]));
+            }
+            set {
+                this["Truong138_2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong138_3 {
+            get {
+                return ((string)(this["Truong138_3"]));
+            }
+            set {
+                this["Truong138_3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong138_4 {
+            get {
+                return ((string)(this["Truong138_4"]));
+            }
+            set {
+                this["Truong138_4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong140 {
+            get {
+                return ((string)(this["Truong140"]));
+            }
+            set {
+                this["Truong140"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong142 {
+            get {
+                return ((string)(this["Truong142"]));
+            }
+            set {
+                this["Truong142"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong144 {
+            get {
+                return ((string)(this["Truong144"]));
+            }
+            set {
+                this["Truong144"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong146 {
+            get {
+                return ((string)(this["Truong146"]));
+            }
+            set {
+                this["Truong146"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong148 {
+            get {
+                return ((string)(this["Truong148"]));
+            }
+            set {
+                this["Truong148"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong126 {
+            get {
+                return ((string)(this["Truong126"]));
+            }
+            set {
+                this["Truong126"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Truong150 {
+            get {
+                return ((string)(this["Truong150"]));
+            }
+            set {
+                this["Truong150"] = value;
+            }
+        }
     }
 }

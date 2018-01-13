@@ -121,9 +121,9 @@
             this.label6.ForeColor = System.Drawing.Color.Green;
             this.label6.Location = new System.Drawing.Point(3, 145);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
+            this.label6.Size = new System.Drawing.Size(159, 13);
             this.label6.TabIndex = 0;
-            this.label6.Text = "22. 退職";
+            this.label6.Text = "22.退職者 (うち退職者人員)";
             // 
             // label7
             // 
@@ -132,9 +132,9 @@
             this.label7.ForeColor = System.Drawing.Color.Green;
             this.label7.Location = new System.Drawing.Point(3, 172);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.Size = new System.Drawing.Size(119, 13);
             this.label7.TabIndex = 0;
-            this.label7.Text = "24. 合計";
+            this.label7.Text = "24 .合計 (報告人員)";
             // 
             // label8
             // 
@@ -190,7 +190,7 @@
             // 
             // txt_Truong_019
             // 
-            this.txt_Truong_019.Location = new System.Drawing.Point(139, 59);
+            this.txt_Truong_019.Location = new System.Drawing.Point(165, 59);
             this.txt_Truong_019.Name = "txt_Truong_019";
             this.txt_Truong_019.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_019.Properties.Appearance.Options.UseFont = true;
@@ -205,7 +205,7 @@
             // 
             // txt_Truong_021
             // 
-            this.txt_Truong_021.Location = new System.Drawing.Point(139, 85);
+            this.txt_Truong_021.Location = new System.Drawing.Point(165, 85);
             this.txt_Truong_021.Name = "txt_Truong_021";
             this.txt_Truong_021.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_021.Properties.Appearance.Options.UseFont = true;
@@ -219,7 +219,7 @@
             // 
             // txt_Truong_023
             // 
-            this.txt_Truong_023.Location = new System.Drawing.Point(139, 113);
+            this.txt_Truong_023.Location = new System.Drawing.Point(165, 113);
             this.txt_Truong_023.Name = "txt_Truong_023";
             this.txt_Truong_023.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_023.Properties.Appearance.Options.UseFont = true;
@@ -233,7 +233,7 @@
             // 
             // txt_Truong_022
             // 
-            this.txt_Truong_022.Location = new System.Drawing.Point(139, 142);
+            this.txt_Truong_022.Location = new System.Drawing.Point(165, 142);
             this.txt_Truong_022.Name = "txt_Truong_022";
             this.txt_Truong_022.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_022.Properties.Appearance.Options.UseFont = true;
@@ -247,7 +247,7 @@
             // 
             // txt_Truong_024
             // 
-            this.txt_Truong_024.Location = new System.Drawing.Point(139, 169);
+            this.txt_Truong_024.Location = new System.Drawing.Point(165, 169);
             this.txt_Truong_024.Name = "txt_Truong_024";
             this.txt_Truong_024.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_024.Properties.Appearance.Options.UseFont = true;
@@ -261,7 +261,7 @@
             // 
             // txt_Truong_026
             // 
-            this.txt_Truong_026.Location = new System.Drawing.Point(139, 197);
+            this.txt_Truong_026.Location = new System.Drawing.Point(165, 197);
             this.txt_Truong_026.Name = "txt_Truong_026";
             this.txt_Truong_026.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_026.Properties.Appearance.Options.UseFont = true;
@@ -275,7 +275,7 @@
             // 
             // txt_Truong_027
             // 
-            this.txt_Truong_027.Location = new System.Drawing.Point(139, 225);
+            this.txt_Truong_027.Location = new System.Drawing.Point(165, 225);
             this.txt_Truong_027.Name = "txt_Truong_027";
             this.txt_Truong_027.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_Truong_027.Properties.Appearance.Options.UseFont = true;
@@ -305,7 +305,7 @@
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.Green;
-            this.label10.Location = new System.Drawing.Point(273, 238);
+            this.label10.Location = new System.Drawing.Point(272, 238);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(19, 13);
             this.label10.TabIndex = 0;

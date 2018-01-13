@@ -38,6 +38,12 @@
             this.uC_CityO_Loai3_DeSo1 = new BaoCaoLuong2018.MyUserControl.UC_CityO_Loai3_DeSo();
             this.tab_CityO_JP_Check = new DevExpress.XtraTab.XtraTabPage();
             this.uC_CityO_JP1 = new BaoCaoLuong2018.MyUserControl.UC_CityO_JP();
+            this.tab_CityN_Loai1_Check = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_Loai11 = new BaoCaoLuong2018.MyUserControl.UC_CityN_Loai1();
+            this.tab_CityN_Loai3_Check = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_Loai31 = new BaoCaoLuong2018.MyUserControl.UC_CityN_Loai3();
+            this.tab_CityN_JP_Check = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_JP1 = new BaoCaoLuong2018.MyUserControl.UC_CityN_JP();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.xtraTabControl2 = new DevExpress.XtraTab.XtraTabControl();
@@ -48,6 +54,12 @@
             this.uC_CityO_Loai3_DeSo2 = new BaoCaoLuong2018.MyUserControl.UC_CityO_Loai3_DeSo();
             this.tab_CityO_JP_User1 = new DevExpress.XtraTab.XtraTabPage();
             this.uC_CityO_JP2 = new BaoCaoLuong2018.MyUserControl.UC_CityO_JP();
+            this.tab_CityN_Loai1_User1 = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_Loai12 = new BaoCaoLuong2018.MyUserControl.UC_CityN_Loai1();
+            this.tab_CityN_Loai3_User1 = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_Loai32 = new BaoCaoLuong2018.MyUserControl.UC_CityN_Loai3();
+            this.tab_CityN_JP_User1 = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_JP2 = new BaoCaoLuong2018.MyUserControl.UC_CityN_JP();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lb_User1 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -59,6 +71,12 @@
             this.uC_CityO_Loai3_DeSo3 = new BaoCaoLuong2018.MyUserControl.UC_CityO_Loai3_DeSo();
             this.tab_CityO_JP_User2 = new DevExpress.XtraTab.XtraTabPage();
             this.uC_CityO_JP3 = new BaoCaoLuong2018.MyUserControl.UC_CityO_JP();
+            this.tab_CityN_Loai1_User2 = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_Loai13 = new BaoCaoLuong2018.MyUserControl.UC_CityN_Loai1();
+            this.tab_CityN_Loai3_User2 = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_Loai33 = new BaoCaoLuong2018.MyUserControl.UC_CityN_Loai3();
+            this.tab_CityN_JP_User2 = new DevExpress.XtraTab.XtraTabPage();
+            this.uC_CityN_JP3 = new BaoCaoLuong2018.MyUserControl.UC_CityN_JP();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lb_User2 = new System.Windows.Forms.Label();
             this.panel4.SuspendLayout();
@@ -67,6 +85,9 @@
             this.tab_CityO_Loai1_Check.SuspendLayout();
             this.tab_CityO_Loai3_Check.SuspendLayout();
             this.tab_CityO_JP_Check.SuspendLayout();
+            this.tab_CityN_Loai1_Check.SuspendLayout();
+            this.tab_CityN_Loai3_Check.SuspendLayout();
+            this.tab_CityN_JP_Check.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl2)).BeginInit();
@@ -74,6 +95,9 @@
             this.tab_CityO_Loai1_User1.SuspendLayout();
             this.tab_CityO_Loai3_User1.SuspendLayout();
             this.tab_CityO_JP_User1.SuspendLayout();
+            this.tab_CityN_Loai1_User1.SuspendLayout();
+            this.tab_CityN_Loai3_User1.SuspendLayout();
+            this.tab_CityN_JP_User1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl3)).BeginInit();
@@ -81,6 +105,9 @@
             this.tab_CityO_Loai1_User2.SuspendLayout();
             this.tab_CityO_Loai3_User2.SuspendLayout();
             this.tab_CityO_JP_User2.SuspendLayout();
+            this.tab_CityN_Loai1_User2.SuspendLayout();
+            this.tab_CityN_Loai3_User2.SuspendLayout();
+            this.tab_CityN_JP_User2.SuspendLayout();
             this.panel6.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -115,7 +142,10 @@
             this.tab_CityO_Loai1_Check,
             this.tab_CityO_Loai2_Check,
             this.tab_CityO_Loai3_Check,
-            this.tab_CityO_JP_Check});
+            this.tab_CityO_JP_Check,
+            this.tab_CityN_Loai1_Check,
+            this.tab_CityN_Loai3_Check,
+            this.tab_CityN_JP_Check});
             // 
             // tab_CityO_Loai1_Check
             // 
@@ -168,11 +198,64 @@
             // uC_CityO_JP1
             // 
             this.uC_CityO_JP1.AutoScroll = true;
-            this.uC_CityO_JP1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.uC_CityO_JP1.Location = new System.Drawing.Point(0, 0);
             this.uC_CityO_JP1.Name = "uC_CityO_JP1";
-            this.uC_CityO_JP1.Size = new System.Drawing.Size(665, 512);
+            this.uC_CityO_JP1.Size = new System.Drawing.Size(571, 447);
             this.uC_CityO_JP1.TabIndex = 3;
+            // 
+            // tab_CityN_Loai1_Check
+            // 
+            this.tab_CityN_Loai1_Check.AutoScroll = true;
+            this.tab_CityN_Loai1_Check.Controls.Add(this.uC_CityN_Loai11);
+            this.tab_CityN_Loai1_Check.Name = "tab_CityN_Loai1_Check";
+            this.tab_CityN_Loai1_Check.Size = new System.Drawing.Size(665, 512);
+            this.tab_CityN_Loai1_Check.Text = "City N Loại 1";
+            // 
+            // uC_CityN_Loai11
+            // 
+            this.uC_CityN_Loai11.AutoScroll = true;
+            this.uC_CityN_Loai11.AutoSize = true;
+            this.uC_CityN_Loai11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_Loai11.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_Loai11.Name = "uC_CityN_Loai11";
+            this.uC_CityN_Loai11.Size = new System.Drawing.Size(665, 512);
+            this.uC_CityN_Loai11.TabIndex = 0;
+            // 
+            // tab_CityN_Loai3_Check
+            // 
+            this.tab_CityN_Loai3_Check.AutoScroll = true;
+            this.tab_CityN_Loai3_Check.Controls.Add(this.uC_CityN_Loai31);
+            this.tab_CityN_Loai3_Check.Name = "tab_CityN_Loai3_Check";
+            this.tab_CityN_Loai3_Check.Size = new System.Drawing.Size(665, 512);
+            this.tab_CityN_Loai3_Check.Text = "CityN Loại 3";
+            // 
+            // uC_CityN_Loai31
+            // 
+            this.uC_CityN_Loai31.AutoScroll = true;
+            this.uC_CityN_Loai31.AutoSize = true;
+            this.uC_CityN_Loai31.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_Loai31.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_Loai31.Name = "uC_CityN_Loai31";
+            this.uC_CityN_Loai31.Size = new System.Drawing.Size(665, 512);
+            this.uC_CityN_Loai31.TabIndex = 0;
+            // 
+            // tab_CityN_JP_Check
+            // 
+            this.tab_CityN_JP_Check.AutoScroll = true;
+            this.tab_CityN_JP_Check.Controls.Add(this.uC_CityN_JP1);
+            this.tab_CityN_JP_Check.Name = "tab_CityN_JP_Check";
+            this.tab_CityN_JP_Check.Size = new System.Drawing.Size(665, 512);
+            this.tab_CityN_JP_Check.Text = "CityN JP";
+            // 
+            // uC_CityN_JP1
+            // 
+            this.uC_CityN_JP1.AutoScroll = true;
+            this.uC_CityN_JP1.AutoSize = true;
+            this.uC_CityN_JP1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_JP1.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_JP1.Name = "uC_CityN_JP1";
+            this.uC_CityN_JP1.Size = new System.Drawing.Size(665, 512);
+            this.uC_CityN_JP1.TabIndex = 0;
             // 
             // panel1
             // 
@@ -206,7 +289,10 @@
             this.tab_CityO_Loai1_User1,
             this.tab_CityO_Loai2_User1,
             this.tab_CityO_Loai3_User1,
-            this.tab_CityO_JP_User1});
+            this.tab_CityO_JP_User1,
+            this.tab_CityN_Loai1_User1,
+            this.tab_CityN_Loai3_User1,
+            this.tab_CityN_JP_User1});
             // 
             // tab_CityO_Loai1_User1
             // 
@@ -265,6 +351,60 @@
             this.uC_CityO_JP2.Size = new System.Drawing.Size(665, 514);
             this.uC_CityO_JP2.TabIndex = 3;
             // 
+            // tab_CityN_Loai1_User1
+            // 
+            this.tab_CityN_Loai1_User1.AutoScroll = true;
+            this.tab_CityN_Loai1_User1.Controls.Add(this.uC_CityN_Loai12);
+            this.tab_CityN_Loai1_User1.Name = "tab_CityN_Loai1_User1";
+            this.tab_CityN_Loai1_User1.Size = new System.Drawing.Size(665, 514);
+            this.tab_CityN_Loai1_User1.Text = "CityN Loại 1";
+            // 
+            // uC_CityN_Loai12
+            // 
+            this.uC_CityN_Loai12.AutoScroll = true;
+            this.uC_CityN_Loai12.AutoSize = true;
+            this.uC_CityN_Loai12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_Loai12.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_Loai12.Name = "uC_CityN_Loai12";
+            this.uC_CityN_Loai12.Size = new System.Drawing.Size(665, 514);
+            this.uC_CityN_Loai12.TabIndex = 0;
+            // 
+            // tab_CityN_Loai3_User1
+            // 
+            this.tab_CityN_Loai3_User1.AutoScroll = true;
+            this.tab_CityN_Loai3_User1.Controls.Add(this.uC_CityN_Loai32);
+            this.tab_CityN_Loai3_User1.Name = "tab_CityN_Loai3_User1";
+            this.tab_CityN_Loai3_User1.Size = new System.Drawing.Size(665, 514);
+            this.tab_CityN_Loai3_User1.Text = "CityN Loại 3";
+            // 
+            // uC_CityN_Loai32
+            // 
+            this.uC_CityN_Loai32.AutoScroll = true;
+            this.uC_CityN_Loai32.AutoSize = true;
+            this.uC_CityN_Loai32.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_Loai32.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_Loai32.Name = "uC_CityN_Loai32";
+            this.uC_CityN_Loai32.Size = new System.Drawing.Size(665, 514);
+            this.uC_CityN_Loai32.TabIndex = 0;
+            // 
+            // tab_CityN_JP_User1
+            // 
+            this.tab_CityN_JP_User1.AutoScroll = true;
+            this.tab_CityN_JP_User1.Controls.Add(this.uC_CityN_JP2);
+            this.tab_CityN_JP_User1.Name = "tab_CityN_JP_User1";
+            this.tab_CityN_JP_User1.Size = new System.Drawing.Size(665, 514);
+            this.tab_CityN_JP_User1.Text = "CityN JP";
+            // 
+            // uC_CityN_JP2
+            // 
+            this.uC_CityN_JP2.AutoScroll = true;
+            this.uC_CityN_JP2.AutoSize = true;
+            this.uC_CityN_JP2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_JP2.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_JP2.Name = "uC_CityN_JP2";
+            this.uC_CityN_JP2.Size = new System.Drawing.Size(665, 514);
+            this.uC_CityN_JP2.TabIndex = 0;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.lb_User1);
@@ -306,7 +446,10 @@
             this.tab_CityO_Loai1_User2,
             this.tab_CityO_Loai2_User2,
             this.tab_CityO_Loai3_User2,
-            this.tab_CityO_JP_User2});
+            this.tab_CityO_JP_User2,
+            this.tab_CityN_Loai1_User2,
+            this.tab_CityN_Loai3_User2,
+            this.tab_CityN_JP_User2});
             // 
             // tab_CityO_Loai1_User2
             // 
@@ -365,6 +508,59 @@
             this.uC_CityO_JP3.Size = new System.Drawing.Size(665, 515);
             this.uC_CityO_JP3.TabIndex = 3;
             // 
+            // tab_CityN_Loai1_User2
+            // 
+            this.tab_CityN_Loai1_User2.Controls.Add(this.uC_CityN_Loai13);
+            this.tab_CityN_Loai1_User2.Name = "tab_CityN_Loai1_User2";
+            this.tab_CityN_Loai1_User2.Size = new System.Drawing.Size(665, 515);
+            this.tab_CityN_Loai1_User2.Text = "CityN Loại 1";
+            // 
+            // uC_CityN_Loai13
+            // 
+            this.uC_CityN_Loai13.AutoScroll = true;
+            this.uC_CityN_Loai13.AutoSize = true;
+            this.uC_CityN_Loai13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_Loai13.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_Loai13.Name = "uC_CityN_Loai13";
+            this.uC_CityN_Loai13.Size = new System.Drawing.Size(665, 515);
+            this.uC_CityN_Loai13.TabIndex = 0;
+            // 
+            // tab_CityN_Loai3_User2
+            // 
+            this.tab_CityN_Loai3_User2.AutoScroll = true;
+            this.tab_CityN_Loai3_User2.Controls.Add(this.uC_CityN_Loai33);
+            this.tab_CityN_Loai3_User2.Name = "tab_CityN_Loai3_User2";
+            this.tab_CityN_Loai3_User2.Size = new System.Drawing.Size(665, 515);
+            this.tab_CityN_Loai3_User2.Text = "CityN Loại 3";
+            // 
+            // uC_CityN_Loai33
+            // 
+            this.uC_CityN_Loai33.AutoScroll = true;
+            this.uC_CityN_Loai33.AutoSize = true;
+            this.uC_CityN_Loai33.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_Loai33.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_Loai33.Name = "uC_CityN_Loai33";
+            this.uC_CityN_Loai33.Size = new System.Drawing.Size(665, 515);
+            this.uC_CityN_Loai33.TabIndex = 0;
+            // 
+            // tab_CityN_JP_User2
+            // 
+            this.tab_CityN_JP_User2.AutoScroll = true;
+            this.tab_CityN_JP_User2.Controls.Add(this.uC_CityN_JP3);
+            this.tab_CityN_JP_User2.Name = "tab_CityN_JP_User2";
+            this.tab_CityN_JP_User2.Size = new System.Drawing.Size(665, 515);
+            this.tab_CityN_JP_User2.Text = "CityN JP";
+            // 
+            // uC_CityN_JP3
+            // 
+            this.uC_CityN_JP3.AutoScroll = true;
+            this.uC_CityN_JP3.AutoSize = true;
+            this.uC_CityN_JP3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.uC_CityN_JP3.Location = new System.Drawing.Point(0, 0);
+            this.uC_CityN_JP3.Name = "uC_CityN_JP3";
+            this.uC_CityN_JP3.Size = new System.Drawing.Size(665, 515);
+            this.uC_CityN_JP3.TabIndex = 0;
+            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.lb_User2);
@@ -400,6 +596,12 @@
             this.tab_CityO_Loai1_Check.ResumeLayout(false);
             this.tab_CityO_Loai3_Check.ResumeLayout(false);
             this.tab_CityO_JP_Check.ResumeLayout(false);
+            this.tab_CityN_Loai1_Check.ResumeLayout(false);
+            this.tab_CityN_Loai1_Check.PerformLayout();
+            this.tab_CityN_Loai3_Check.ResumeLayout(false);
+            this.tab_CityN_Loai3_Check.PerformLayout();
+            this.tab_CityN_JP_Check.ResumeLayout(false);
+            this.tab_CityN_JP_Check.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabControl2)).EndInit();
@@ -407,6 +609,12 @@
             this.tab_CityO_Loai1_User1.ResumeLayout(false);
             this.tab_CityO_Loai3_User1.ResumeLayout(false);
             this.tab_CityO_JP_User1.ResumeLayout(false);
+            this.tab_CityN_Loai1_User1.ResumeLayout(false);
+            this.tab_CityN_Loai1_User1.PerformLayout();
+            this.tab_CityN_Loai3_User1.ResumeLayout(false);
+            this.tab_CityN_Loai3_User1.PerformLayout();
+            this.tab_CityN_JP_User1.ResumeLayout(false);
+            this.tab_CityN_JP_User1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -415,6 +623,12 @@
             this.tab_CityO_Loai1_User2.ResumeLayout(false);
             this.tab_CityO_Loai3_User2.ResumeLayout(false);
             this.tab_CityO_JP_User2.ResumeLayout(false);
+            this.tab_CityN_Loai1_User2.ResumeLayout(false);
+            this.tab_CityN_Loai1_User2.PerformLayout();
+            this.tab_CityN_Loai3_User2.ResumeLayout(false);
+            this.tab_CityN_Loai3_User2.PerformLayout();
+            this.tab_CityN_JP_User2.ResumeLayout(false);
+            this.tab_CityN_JP_User2.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.ResumeLayout(false);
@@ -455,5 +669,23 @@
         public System.Windows.Forms.Panel panel6;
         public System.Windows.Forms.Label lb_User1;
         public System.Windows.Forms.Label lb_User2;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_Loai1_Check;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_Loai3_Check;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_JP_Check;
+        public UC_CityN_Loai1 uC_CityN_Loai11;
+        public UC_CityN_Loai3 uC_CityN_Loai31;
+        public UC_CityN_JP uC_CityN_JP1;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_Loai1_User1;
+        public UC_CityN_Loai1 uC_CityN_Loai12;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_Loai3_User1;
+        public UC_CityN_Loai3 uC_CityN_Loai32;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_JP_User1;
+        public UC_CityN_JP uC_CityN_JP2;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_Loai1_User2;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_Loai3_User2;
+        public DevExpress.XtraTab.XtraTabPage tab_CityN_JP_User2;
+        public UC_CityN_Loai1 uC_CityN_Loai13;
+        public UC_CityN_Loai3 uC_CityN_Loai33;
+        public UC_CityN_JP uC_CityN_JP3;
     }
 }

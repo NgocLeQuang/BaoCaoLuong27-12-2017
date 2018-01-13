@@ -25,8 +25,10 @@ namespace BaoCaoLuong2018
         public static string StrCheck = "";
         public static List<dataNote_> DataNote = new List<dataNote_>();
         public static bool FlagLoad = false;
+        public static bool FlagLoadCheck = false;
 
-        public static string Version = "1.0.0";
+
+        public static string Version = "1.2.8";
         public static string StrCity="";
         public static bool FlagChangeSave = true;
         public static string StrPath = @"\\192.168.165.10\BaoCaoLuong2018$";
@@ -71,11 +73,11 @@ namespace BaoCaoLuong2018
         }
         public static void RunUpdateVersion()
         {
-            Process.Start(@"\\10.10.10.254\DE_Viet\2017\BaoCaoLuong2018");
-            //if (Settings.Default.Server == "Đà Nẵng")
-            //    Process.Start(@"\\10.10.10.254\DE_Viet\2017\BaoCaoLuong2018");
-            //else
-            //    Process.Start("https://drive.google.com/drive/folders/0BwO0VkvgrRHaeW5meEE4blBHdnc?usp=sharing");
+            //Process.Start(@"\\10.10.10.254\DE_Viet\2017\BaoCaoLuong2018");
+            if (Settings.Default.Server == "Đà Nẵng")
+                Process.Start(@"\\10.10.10.254\DE_Viet\2018\BaoCaoLuong2018\Tool");
+            else
+                Process.Start("https://drive.google.com/drive/folders/1PS0xuChchhWGzFrPEWFysBr-7IzRcY3W");
         }
     }
 }

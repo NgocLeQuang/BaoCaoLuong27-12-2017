@@ -122,7 +122,7 @@ namespace BaoCaoLuong2018.MyUserControl
                                         "", "", "", "", "", "", "", "", "", "",
                                         "", "", "", "", "", "", "", "", "", "",
                                         "", "", "", "", "", "", "", "", "", "",
-                                        "", "","","","");
+                                        "", "","","","", "");
         }
         public void Edit_Save_CityO_Loai1(string Batch, string image)
         {
@@ -148,7 +148,7 @@ namespace BaoCaoLuong2018.MyUserControl
                                         "", "", "", "", "", "", "", "", "", "",
                                         "", "", "", "", "", "", "", "", "", "",
                                         "", "", "", "", "", "", "", "", "", "",
-                                        "", "", "", "", "", CheckQC());
+                                        "", "", "", "", "", "", CheckQC());
         }
         private void DoiMau(int soByteBe, int soBytelon, TextEdit textBox)
         {
@@ -225,8 +225,20 @@ namespace BaoCaoLuong2018.MyUserControl
             DoiMau(0, 8, (TextEdit)sender);
         }
 
-        private void UC_CityO_Loai1_Load(object sender, EventArgs e)
+        public void UC_CityO_Loai1_Load(object sender, EventArgs e)
         {
+            if (Global.FlagLoad)
+                return;
+            txt_Truong_018.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "18" select w.Note).FirstOrDefault();
+            txt_Truong_019.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "19" select w.Note).FirstOrDefault();
+            txt_Truong_021.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "21" select w.Note).FirstOrDefault();
+            txt_Truong_022.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "22" select w.Note).FirstOrDefault();
+            txt_Truong_023.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "23" select w.Note).FirstOrDefault();
+            txt_Truong_024.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "24" select w.Note).FirstOrDefault();
+            txt_Truong_025.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "25" select w.Note).FirstOrDefault();
+            txt_Truong_026.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "26" select w.Note).FirstOrDefault();
+            txt_Truong_027.Tag = (from w in Global.DataNote where w.City == "CityO" & w.LoaiPhieu == "Loai1" & w.Truong == "27" select w.Note).FirstOrDefault();
+            
             txt_Truong_018.GotFocus += Txt_Truong_018_GotFocus;
             txt_Truong_019.GotFocus += Txt_Truong_018_GotFocus;
             txt_Truong_021.GotFocus += Txt_Truong_018_GotFocus;
@@ -240,7 +252,7 @@ namespace BaoCaoLuong2018.MyUserControl
 
         private void Txt_Truong_018_GotFocus(object sender, EventArgs e)
         {
-            //Focus(((TextEdit) sender).Name, ((TextEdit)sender).Tag+"");
+            Focus(((TextEdit) sender).Name, ((TextEdit)sender).Tag+"");
             ((TextEdit)sender).SelectAll();
         }
 
@@ -258,6 +270,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong25 = txt_Truong_025.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -266,6 +279,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong19 = txt_Truong_019.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -274,6 +288,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong21 = txt_Truong_021.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -281,6 +296,7 @@ namespace BaoCaoLuong2018.MyUserControl
         {
             if (Global.FlagChangeSave == false)
                 return;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Truong23 = txt_Truong_023.Text;
             Settings.Default.Save();
         }
@@ -290,6 +306,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong22 = txt_Truong_022.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -298,6 +315,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong24 = txt_Truong_024.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -306,6 +324,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong26 = txt_Truong_026.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -314,6 +333,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.Truong27 = txt_Truong_027.Text;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
 
@@ -323,6 +343,7 @@ namespace BaoCaoLuong2018.MyUserControl
             if (Global.FlagChangeSave == false)
                 return;
             Settings.Default.QC = chk_QC.Checked;
+            Settings.Default.LoaiPhieu = "Loai1";
             Settings.Default.Save();
         }
     }

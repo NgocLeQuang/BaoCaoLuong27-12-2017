@@ -78,6 +78,7 @@
             this.cbb_Batch.Name = "cbb_Batch";
             this.cbb_Batch.Size = new System.Drawing.Size(300, 26);
             this.cbb_Batch.TabIndex = 1;
+            this.cbb_Batch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbb_City_KeyDown);
             // 
             // simpleButton1
             // 
@@ -85,7 +86,7 @@
             this.simpleButton1.Appearance.Options.UseFont = true;
             this.simpleButton1.Location = new System.Drawing.Point(574, 8);
             this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(102, 25);
+            this.simpleButton1.Size = new System.Drawing.Size(92, 25);
             this.simpleButton1.TabIndex = 2;
             this.simpleButton1.Text = "Xuất Excel";
             this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
@@ -132,11 +133,12 @@
             // chk_Multiple
             // 
             this.chk_Multiple.AutoSize = true;
-            this.chk_Multiple.Location = new System.Drawing.Point(794, 13);
+            this.chk_Multiple.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chk_Multiple.Location = new System.Drawing.Point(763, 11);
             this.chk_Multiple.Name = "chk_Multiple";
-            this.chk_Multiple.Size = new System.Drawing.Size(141, 17);
+            this.chk_Multiple.Size = new System.Drawing.Size(132, 20);
             this.chk_Multiple.TabIndex = 5;
-            this.chk_Multiple.Text = "Multiple export file Error";
+            this.chk_Multiple.Text = "Multiple export file";
             this.chk_Multiple.UseVisualStyleBackColor = true;
             this.chk_Multiple.CheckedChanged += new System.EventHandler(this.chk_Multiple_CheckedChanged);
             // 
@@ -153,9 +155,9 @@
             // 
             this.simpleButton2.Appearance.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.simpleButton2.Appearance.Options.UseFont = true;
-            this.simpleButton2.Location = new System.Drawing.Point(682, 8);
+            this.simpleButton2.Location = new System.Drawing.Point(673, 8);
             this.simpleButton2.Name = "simpleButton2";
-            this.simpleButton2.Size = new System.Drawing.Size(102, 25);
+            this.simpleButton2.Size = new System.Drawing.Size(76, 25);
             this.simpleButton2.TabIndex = 2;
             this.simpleButton2.Text = "Error";
             this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
@@ -181,6 +183,8 @@
             this.cbb_City.Size = new System.Drawing.Size(104, 26);
             this.cbb_City.TabIndex = 1;
             this.cbb_City.SelectedIndexChanged += new System.EventHandler(this.txt_LoaiPhieu_SelectedIndexChanged);
+            this.cbb_City.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbb_City_KeyDown);
+            this.cbb_City.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbb_City_KeyPress);
             // 
             // panelControl2
             // 

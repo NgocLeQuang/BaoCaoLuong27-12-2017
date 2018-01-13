@@ -19,10 +19,11 @@ namespace BaoCaoLuong2018.MyForm
 
         private void frm_ManagerBatch_Load(object sender, EventArgs e)
         {
+            cbb_City.Items.Clear();
             cbb_City.Items.Add(new { Text = "", Value = "" });
-            cbb_City.Items.Add(new { Text = "CityN", Value = "CityS" });
+            cbb_City.Items.Add(new { Text = "CityN", Value = "CityN" });
             cbb_City.Items.Add(new { Text = "CityO", Value = "CityO" });
-            cbb_City.Items.Add(new { Text = "CityS", Value = "CityS" });
+            //cbb_City.Items.Add(new { Text = "CityS", Value = "CityS" });
             cbb_City.DisplayMember = "Text";
             cbb_City.ValueMember = "Value";
             cbb_City.SelectedText = Global.StrCity;
@@ -58,8 +59,8 @@ namespace BaoCaoLuong2018.MyForm
                 try
                 {
                     string temp = Global.StrPath + "\\" + BatchID;
-                    Directory.Delete(temp, true);
                     Global.Db.XoaBatch(BatchID);
+                    Directory.Delete(temp, true);
                     MessageBox.Show("Đã xóa batch thành công!");
                 }
                 catch (Exception i)
@@ -101,8 +102,8 @@ namespace BaoCaoLuong2018.MyForm
                 {
                     string BatchID = gridView1.GetRowCellValue(rowHandle, "BatchID").ToString();
                     string temp = Global.StrPath + "\\" + BatchID;
-                    Directory.Delete(temp, true);
                     Global.Db.XoaBatch(BatchID);
+                    Directory.Delete(temp, true);
                 }
             }
             refresh();

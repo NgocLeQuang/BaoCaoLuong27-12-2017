@@ -47,7 +47,7 @@
             this.lb_SoHinhChuaNhap = new DevExpress.XtraEditors.LabelControl();
             this.lb_TongSoHinh = new DevExpress.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.XtraEditors.LabelControl();
-            this.lb_fBatchNameHT = new DevExpress.XtraEditors.LabelControl();
+            this.lb_fBatchName = new DevExpress.XtraEditors.LabelControl();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -91,7 +91,7 @@
             this.panelControl1.Controls.Add(this.lb_SoHinhChuaNhap);
             this.panelControl1.Controls.Add(this.lb_TongSoHinh);
             this.panelControl1.Controls.Add(this.labelControl7);
-            this.panelControl1.Controls.Add(this.lb_fBatchNameHT);
+            this.panelControl1.Controls.Add(this.lb_fBatchName);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
@@ -129,6 +129,7 @@
             this.rb_dejp.TabStop = true;
             this.rb_dejp.Text = "DeJp";
             this.rb_dejp.UseVisualStyleBackColor = true;
+            this.rb_dejp.Visible = false;
             this.rb_dejp.CheckedChanged += new System.EventHandler(this.rb_dejp_CheckedChanged);
             // 
             // rb_deso
@@ -142,6 +143,7 @@
             this.rb_deso.TabStop = true;
             this.rb_deso.Text = "DeSo";
             this.rb_deso.UseVisualStyleBackColor = true;
+            this.rb_deso.Visible = false;
             this.rb_deso.CheckedChanged += new System.EventHandler(this.rb_deso_CheckedChanged);
             // 
             // labelControl6
@@ -272,15 +274,15 @@
             this.labelControl7.TabIndex = 0;
             this.labelControl7.Text = "Batch:";
             // 
-            // lb_fBatchNameHT
+            // lb_fBatchName
             // 
-            this.lb_fBatchNameHT.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
-            this.lb_fBatchNameHT.Appearance.Options.UseFont = true;
-            this.lb_fBatchNameHT.Location = new System.Drawing.Point(74, 47);
-            this.lb_fBatchNameHT.Name = "lb_fBatchNameHT";
-            this.lb_fBatchNameHT.Size = new System.Drawing.Size(37, 16);
-            this.lb_fBatchNameHT.TabIndex = 0;
-            this.lb_fBatchNameHT.Text = "Batch";
+            this.lb_fBatchName.Appearance.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.lb_fBatchName.Appearance.Options.UseFont = true;
+            this.lb_fBatchName.Location = new System.Drawing.Point(74, 47);
+            this.lb_fBatchName.Name = "lb_fBatchName";
+            this.lb_fBatchName.Size = new System.Drawing.Size(37, 16);
+            this.lb_fBatchName.TabIndex = 0;
+            this.lb_fBatchName.Text = "Batch";
             // 
             // gridControl1
             // 
@@ -315,7 +317,7 @@
             // gridColumn6
             // 
             this.gridColumn6.Caption = "Batch";
-            this.gridColumn6.FieldName = "Batch";
+            this.gridColumn6.FieldName = "BatchName";
             this.gridColumn6.Name = "gridColumn6";
             this.gridColumn6.Visible = true;
             this.gridColumn6.VisibleIndex = 0;
@@ -325,7 +327,7 @@
             // 
             this.gridColumn1.Caption = "Tên hình";
             this.gridColumn1.ColumnEdit = this.repositoryItemPopupContainerEdit1;
-            this.gridColumn1.FieldName = "idimage";
+            this.gridColumn1.FieldName = "IDImage";
             this.gridColumn1.Name = "gridColumn1";
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 1;
@@ -380,7 +382,7 @@
             // gridColumn5
             // 
             this.gridColumn5.Caption = "Tên hình (Copy)";
-            this.gridColumn5.FieldName = "idimage";
+            this.gridColumn5.FieldName = "IDImage";
             this.gridColumn5.Name = "gridColumn5";
             this.gridColumn5.Visible = true;
             this.gridColumn5.VisibleIndex = 2;
@@ -452,7 +454,7 @@
         private DevExpress.XtraEditors.LabelControl lb_SoHinhDangNhap;
         private DevExpress.XtraEditors.LabelControl lb_SoHinhChuaNhap;
         private DevExpress.XtraEditors.LabelControl lb_TongSoHinh;
-        public DevExpress.XtraEditors.LabelControl lb_fBatchNameHT;
+        public DevExpress.XtraEditors.LabelControl lb_fBatchName;
         private DevExpress.XtraEditors.LabelControl labelControl7;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
